@@ -28,14 +28,37 @@ printf -v PROBLEM "%03d" $1
 PROBDIR="./$PROBLEM"
 
 if [ -d "$PROBDIR" ]; then
-	cd "$PROBDIR"
+	echo "Directory "$PROBLEM" already exists"
+	while true; do
+		read -r -p "Overwrite? {Yy|Nn} >> " OVERWRITE
+		case $OVERWRITE in
+			[yY][eE][sS]|[yY])
+				echo "Overwriting directory "$PROBLEM""
+				rm -rf "$PROBDIR"
+				break
+				;;
+			[nN][oO]|[nN])
+				echo "Not overwriting directory "$PROBLEM""
+				exit 0
+				;;
+			*)
+				continue
+				;;
+		esac
+	done
 else
 	mkdir "$PROBDIR"
 	# run python script to scrape problem statement from project euler website
-	pybin/get_problem_statement.py $1
-	cd "$PROBDIR"
-	touch main.cpp
-	touch Makefile
+	pybin/get_problem_statement.py "$1"
+	# print problem statement to console and request from user the language to be
+	# used to create a solution
+	cat "$PROBDIR"/problem_"$PROBLEM"
+	# use script newproj to set up appropriate directory structure
+	#   -> tags: -l {cpp|python|scala}     Programming language specification
+	#            -n <project-name>         Name of project
+	#            -a                        Add files/dirs to existing directory
+	#      |-> if called with no -l tag, newproj will prompt for language
+	newproj -n "$PROBLEM" -a
 fi
 
 ## M. Sullivan. June, 2016
