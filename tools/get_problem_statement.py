@@ -10,6 +10,7 @@ from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 
+
 def get_problem_statement(prob_num):
     # url for the specified problem
     addr = "https://projecteuler.net/problem="+prob_num
@@ -31,6 +32,7 @@ def write_problem_statement(prob_num):
     with codecs.open(problem_file,'w','utf-8') as output:
         output.write("Problem "+prob_num+"\n")
         output.write(get_problem_statement(prob_num))
+
 
 if __name__=="__main__":
 
