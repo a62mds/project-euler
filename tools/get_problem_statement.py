@@ -1,43 +1,66 @@
 """
-Scrapes the problem statements from https://projecteuler.net
-Usage:
-    /get_problem_statement.py <prob#>   (1 <= prob# <= 556)
+Scrape the problem statement from https://projecteuler.net and save in a plain text file.
 """
 import argparse
-import codecs
-import os
+from pathlib import Path
+import sys
+import traceback
 from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 
 
-def get_problem_statement(prob_num):
-    # url for the specified problem
-    addr = "https://projecteuler.net/problem="+prob_num
-    # scape the website with BeautifulSoup
-    soup = BeautifulSoup(urlopen(addr).read(),"lxml")
-    # Return the text from the div containing the problem content
-    return soup.find_all("div", {"class" : "problem_content"})[0].text
+TOOLS_DIR = Path(__file__).parent
+ROOT_DIR = TOOLS_DIR.parent
+PROBLEMS_DIR = ROOT_DIR / "problems"
 
-def write_problem_statement(prob_num):
-    # absolute path of pybin directory
-    pybin_dir = os.path.dirname(__file__)
-    # path of new problem's solution directory relative to pybin directory
-    rel_prob_path = '../{:03d}'.format(int(prob_num))
-    rel_prob_file = rel_prob_path+'/problem_{:03d}'.format(int(prob_num))
-    # absolute path of new problem's solution directory
-    problem_file = os.path.join(pybin_dir, rel_prob_file)
-    # create file (if none exists) in solution directory and write problem
-    # statement to it
-    with codecs.open(problem_file,'w','utf-8') as output:
-        output.write("Problem "+prob_num+"\n")
-        output.write(get_problem_statement(prob_num))
+MIN_PROBLEM_NUMBER: int = 1
+MAX_PROBLEM_NUMBER: int = 765       # Should probably do this differently so this info doesn't need to be known
+
+
+def main(args: argparse.Namespace) -> int:
+    """
+    Scrape the problem statement from the Project Euler website, create a new directory for the problem (if one does
+    not already exist), and write the problem statement to a text file in the problem directory.
+    """
+    return_code: int = 0
+    try:
+        problem_number: int = args.problem_number
+        problem_statement: str = get_problem_statement(problem_number)
+
+        problem_dir: Path = PROBLEMS_DIR / f"{problem_number:03d}"
+        problem_dir.mkdir(parents=True, exist_ok=True)
+        problem_file: Path = problem_dir / f"problem-{problem_number:03d}.txt"
+
+        with problem_file.open("w", encoding="utf-8") as problem_file_object:
+            problem_file_object.write(f"Problem {problem_number}\n")
+            problem_file_object.write(problem_statement)
+    except Exception:
+        print(traceback.format_exc())
+        return_code = 1
+    return return_code
+
+
+def get_problem_statement(problem_number: int) -> str:
+    """
+    Scrape the statement for the specified problem from the Project Euler website and return as a string.
+    """
+    url: str = f"https://projecteuler.net/problem={problem_number}"
+    soup = BeautifulSoup(urlopen(url).read(),"lxml")
+    return soup.find_all("div", {"class" : "problem_content"})[0].text
 
 
 if __name__=="__main__":
 
     PARSER = argparse.ArgumentParser(description="Scrape the problem statement from https://projecteuler.net")
-    PARSER.add_argument("problem_number", type=int, choices=range(1, 557), help="Problem number")
+    PARSER.add_argument(
+        "problem_number",
+        type=int,
+        choices=range(MIN_PROBLEM_NUMBER, MAX_PROBLEM_NUMBER + 1),
+        help="Problem number"
+    )
     ARGS: argparse.Namespace = PARSER.parse_args()
 
-    write_problem_statement(ARGS.problem_number)
+    RETURN_CODE: int = main(ARGS)
+
+    sys.exit(RETURN_CODE)
