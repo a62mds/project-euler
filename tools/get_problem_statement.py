@@ -4,12 +4,11 @@ Usage:
     /get_problem_statement.py <prob#>   (1 <= prob# <= 556)
 """
 import argparse
-
-from bs4 import BeautifulSoup
-
 import codecs
 import os
 from urllib.request import urlopen
+
+from bs4 import BeautifulSoup
 
 def get_problem_statement(prob_num):
     # url for the specified problem
