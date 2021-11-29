@@ -46,8 +46,13 @@ def get_problem_statement(problem_number: int) -> str:
     Scrape the statement for the specified problem from the Project Euler website and return as a string.
     """
     url: str = f"https://projecteuler.net/problem={problem_number}"
-    soup = BeautifulSoup(urlopen(url).read(),"lxml")
-    return soup.find_all("div", {"class" : "problem_content"})[0].text
+    response: "http.client.HTTPResponse" = urlopen(url)
+    response_bytes: bytes = response.read()
+
+    soup = BeautifulSoup(response_bytes, "lxml")
+    problem_content_div: "bs4.element.Tag" = soup.find("div", {"class" : "problem_content"})
+    problem_statement: str = problem_content_div.text
+    return problem_statement
 
 
 if __name__=="__main__":
