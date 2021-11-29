@@ -3,10 +3,9 @@ Scrapes the problem statements from https://projecteuler.net
 Usage:
     /get_problem_statement.py <prob#>   (1 <= prob# <= 556)
 """
+import argparse
 
 from bs4 import BeautifulSoup
-
-from sys import argv
 
 import codecs
 import os
@@ -35,6 +34,9 @@ def write_problem_statement(prob_num):
         output.write(get_problem_statement(prob_num))
 
 if __name__=="__main__":
-    write_problem_statement(argv[1]);
 
-## M. Sullivan. June, 2016
+    PARSER = argparse.ArgumentParser(description="Scrape the problem statement from https://projecteuler.net")
+    PARSER.add_argument("problem_number", type=int, choices=range(1, 557), help="Problem number")
+    ARGS: argparse.Namespace = PARSER.parse_args()
+
+    write_problem_statement(ARGS.problem_number)
