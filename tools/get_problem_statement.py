@@ -27,10 +27,11 @@ def main(args: argparse.Namespace) -> int:
     try:
         problem_number: int = args.problem_number
         problem_statement: str = get_problem_statement(problem_number)
+        problem_name: str = f"problem-{problem_number:03d}"
 
-        problem_dir: Path = PROBLEMS_DIR / f"{problem_number:03d}"
+        problem_dir: Path = PROBLEMS_DIR / problem_name
         problem_dir.mkdir(parents=True, exist_ok=True)
-        problem_file: Path = problem_dir / f"problem-{problem_number:03d}.txt"
+        problem_file: Path = (problem_dir / problem_name).with_suffix(".txt")
 
         with problem_file.open("w", encoding="utf-8") as problem_file_object:
             problem_file_object.write(f"Problem {problem_number}\n")
