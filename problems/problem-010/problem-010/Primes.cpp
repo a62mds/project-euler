@@ -26,7 +26,7 @@ Primes::Primes(std::string filename) : m_filename{filename} {
 // Subscript operator
 int Primes::operator[](int index) {
 	// Sanity check
-	if (not in_index_range(index))
+	if (!in_index_range(index))
 		throw std::invalid_argument("Index must be within range [1,1999]");
 	// if 0th prime is requested, return 1
 	else if (index == 0) return 1;
@@ -81,7 +81,7 @@ void Primes::gen_file(std::string filename, int max) {
 // in the member variable std::vector<int> m_primes
 bool Primes::is_prime(int input) {
 	// Sanity check (currently only works for integers up to the max indicated)
-	if (not in_prime_range(input))
+	if (!in_prime_range(input))
 		throw std::invalid_argument("Input must be within range [2,17389]");
 
 	// Traverse the vector of primes from smallest to largest looking for input
