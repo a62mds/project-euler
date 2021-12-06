@@ -19,7 +19,7 @@ class Primes {
 		std::vector<long long int> m_primes;
 
 		// Number of primes to generate and store in the prime file
-		int m_numPrimes{200000};
+		int m_numPrimes{2000};
 
 		// Reads the list of prime numbers from the file into m_primes
 		std::vector<long long int> read_file(std::string filename);
@@ -39,8 +39,7 @@ class Primes {
 
 	public:
 		// Constructors
-		Primes();
-		Primes(std::string filename);
+		Primes(std::string filename="primes");
 
 		// Subscript operator
 		long long int operator[](int index);
@@ -64,6 +63,9 @@ class Primes {
 		// Returns smallest positive integer that is divisible by each of the
 		// numbers input, input-1, input-2, ..., 3, 2
 		long long int get_smallest_multiple(int input);
+
+		// Returns the sum of all primes less than max
+		long long int get_sum_to(int max);
 
 		// Returns the GCD of the two inputs
 		long long int get_gcd(long long int lhs, long long int rhs);

@@ -5,7 +5,7 @@
 
 int main() {
 	Primes obj_primes;
-	std::cout << obj_primes.get_smallest_multiple(30) << std::endl;
+	std::cout << obj_primes.get_smallest_multiple(20) << std::endl;
 
     return 0;
 }
