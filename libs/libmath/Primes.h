@@ -19,7 +19,7 @@ class Primes {
 		std::vector<long long int> m_primes;
 
 		// Number of primes to generate and store in the prime file
-		int m_numPrimes{200000};
+		int m_numPrimes{2000};
 
 		// Reads the list of prime numbers from the file into m_primes
 		std::vector<long long int> read_file(std::string filename);
@@ -27,14 +27,19 @@ class Primes {
 		// Generates a file containingthe first max prime numbers
 		void gen_file(std::string filename, int max);
 
+		// Checks whether lhs is divisible by rhs
+		bool is_divisible_by(long long int lhs, long long int rhs) { return lhs%rhs==0; }
+
+		// Checks whether or not input is prime
+		bool is_prime(long long int input);
+
 		// Sanity checks on indices and values
 		bool in_index_range(int index) { return 0 <= index <= m_primes.size(); }
 		bool in_prime_range(int input) { return 1 < input && input < m_primes.back(); }
 
 	public:
 		// Constructors
-		Primes();
-		Primes(std::string filename);
+		Primes(std::string filename="primes");
 
 		// Subscript operator
 		long long int operator[](int index);
@@ -44,12 +49,6 @@ class Primes {
 
 		// Get length of m_primes
 		int get_size() { return m_primes.size(); }
-
-		// Checks whether lhs is divisible by rhs
-		bool is_divisible_by(long long int lhs, long long int rhs) { return lhs%rhs==0; }
-
-		// Checks whether or not input is prime
-		bool is_prime(long long int input);
 
 		// Returns the smallest prime divisor of input
 		long long int get_smallest_prime_divisor(long long int input);
@@ -64,6 +63,9 @@ class Primes {
 		// Returns smallest positive integer that is divisible by each of the
 		// numbers input, input-1, input-2, ..., 3, 2
 		long long int get_smallest_multiple(int input);
+
+		// Returns the sum of all primes less than max
+		long long int get_sum_to(int max);
 
 		// Returns the GCD of the two inputs
 		long long int get_gcd(long long int lhs, long long int rhs);

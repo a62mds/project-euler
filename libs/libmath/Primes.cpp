@@ -7,16 +7,7 @@
 //=============================================================================
 //
 // Constructors
-Primes::Primes() : m_filename("primes") {
-	try {
-		m_primes = read_file(m_filename);
-	} catch(std::ios_base::failure) {
-		gen_file(m_filename, m_numPrimes);
-		m_primes = read_file(m_filename);
-	}
-}
-
-Primes::Primes(std::string filename) : m_filename{filename} {
+Primes::Primes(std::string filename/*="primes"*/) : m_filename{filename} {
 	try {
 		m_primes = read_file(m_filename);
 	} catch(std::ios_base::failure) {
@@ -28,9 +19,9 @@ Primes::Primes(std::string filename) : m_filename{filename} {
 //=============================================================================
 //
 // Subscript operator
-long long int Primes::operator[](int index) {
+int Primes::operator[](int index) {
 	// Sanity check
-	if (not in_index_range(index))
+	if (!in_index_range(index))
 		throw std::invalid_argument("Index must be within range [1,1999]");
 	// if 0th prime is requested, return 1
 	else if (index == 0) return 1;
@@ -54,14 +45,14 @@ std::vector<long long int> Primes::read_file(std::string filename) {
 		output.push_back(value);
 	}
 
- return output;
+	return output;
 }
 
 //=============================================================================
 //
 // Generates a file containing the first max prime numbers
 void Primes::gen_file(std::string filename, int max) {
-	bool is_prime;
+	bool is_prime = true;
 	int num{3};
 	std::ofstream output(filename);
 	std::vector<long long int> primes; 
@@ -85,8 +76,9 @@ void Primes::gen_file(std::string filename, int max) {
 // in the member variable std::vector<int> m_primes
 bool Primes::is_prime(long long int input) {
 	// Sanity check (currently only works for integers up to the max indicated)
-	if (not (input <= m_primes.back()))
-		throw std::invalid_argument("Number beyond range of primes in file");
+	if (!in_prime_range(input))
+		throw std::invalid_argument("Input must be within range [2,17389]");
+
 	// Traverse the vector of primes from smallest to largest looking for input
 	for (std::vector<long long int>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it)
 		if (input == *it) return true;
@@ -183,24 +175,36 @@ long long int Primes::get_smallest_multiple(int input) {
 	return output;
 }
 
-//=============================================================================
-//
-// Returns GCD of the two inputs using Euclid's algorithm
-long long int Primes::get_gcd(long long int lhs, long long int rhs) {
-	if (rhs == 0) { return lhs; } else { return get_gcd(rhs, lhs % rhs); }
+long long int Primes::get_sum_to(int max) {
+	long long int sum{0};
+	for (std::vector<int>::iterator it=m_primes.begin(); it!=m_primes.end() && *it<max; ++it) {
+		sum += *it;
+	}
+	return sum;
 }
 
 //=============================================================================
 //
-// Returns the arithmetic derivative of input 
+// Returns GCD of the two inputs
+long long int Primes::get_gcd(long long int lhs, long long int rhs) {
+	long long int min{lhs <= rhs ? lhs : rhs};
+	for (long long int denom=min; denom>=1; denom--) {
+		if (is_divisible_by(lhs,denom) && is_divisible_by(rhs,denom))
+			return denom;
+	}
+}
+
+//=============================================================================
+//
+// Returns the arithmetic derivative of 
 long long int Primes::arith_deriv(long long int input) {
 	if (is_prime(input)) { 
 		return 1;
 	}
 	else {
-		return input/get_smallest_prime_divisor(input) 
-			+ get_smallest_prime_divisor(input)
-			  * arith_deriv(input/get_smallest_prime_divisor(input));	
+		long long int lpd{get_smallest_prime_divisor(input)};
+		long long int qt{input/lpd};
+		return qt + lpd*arith_deriv(qt);	
 	}
 }
 // M. Sullivan. June, 2016
