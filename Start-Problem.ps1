@@ -23,6 +23,9 @@ Param(
 Try {
     Set-Location tools
     pipenv run python get_problem_statement.py $PROBLEM_NUMBER
+    If ($LastExitCode -ne 0) {
+       Throw "Failed to get problem statement for problem $PROBLEM_NUMBER"
+    }
     pipenv run python setup_problem_directory.py $PROBLEM_NUMBER
 } Catch {
     Write-Error $Error[0]
