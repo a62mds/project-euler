@@ -1,14 +1,15 @@
 #ifndef PRIMES_H
 #define PRIMES_H
 
-#include<algorithm>
-#include<cmath>
-#include<fstream>
-#include<ios>
-#include<sstream>
-#include<stdexcept>
-#include<string>
-#include<vector>
+#include <algorithm>
+#include <cmath>
+#include <fstream>
+#include <ios>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
 
 class Primes {
 	public:
@@ -72,7 +73,6 @@ class Primes {
 
 		// Number of primes to generate and store in the prime file
 		int m_numPrimes{2000};
-
 };
 
 #endif
