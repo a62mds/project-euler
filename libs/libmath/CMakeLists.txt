@@ -17,3 +17,12 @@ set(SOURCES
     Primes.cpp
 )
 add_library(libmath "${SOURCES}" "${HEADERS}")
+
+if(${ENABLE_TESTS})
+    set(TEST_SOURCES
+        Primes.test.cpp
+    )
+    add_executable(test-libmath "${TEST_SOURCES}")
+    target_include_directories(test-libmath PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../external/doctest/doctest/")
+    target_link_libraries(test-libmath PRIVATE libmath)
+endif()
