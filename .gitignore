@@ -198,3 +198,6 @@ _deps
 
 # Build directories
 .build/
+
+# Test directories
+.test/
