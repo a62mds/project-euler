@@ -1,13 +1,16 @@
 """
 Scrape the problem statement from https://projecteuler.net and save in a plain text file.
+
+To do:
+- Use the projecteuler.net/minimal=<PROBLEM_NUMBER> URL to get the problem statement HTML
+- Write problem statement to a markdown file
+  - markdownify?
 """
 import argparse
 from pathlib import Path
+import requests
 import sys
 import traceback
-from urllib.request import urlopen
-
-from bs4 import BeautifulSoup
 
 
 TOOLS_DIR = Path(__file__).parent
@@ -34,8 +37,8 @@ def main(args: argparse.Namespace) -> int:
         problem_file: Path = (problem_dir / problem_name).with_suffix(".txt")
 
         with problem_file.open("w", encoding="utf-8") as problem_file_object:
-            problem_file_object.write(f"Problem {problem_number}\n")
-            problem_file_object.write(problem_statement)
+            problem_file_object.write(f"Problem {problem_number}\n\n")
+            problem_file_object.write(f"{problem_statement.rstrip()}\n")
     except Exception:
         print(traceback.format_exc())
         return_code = 1
@@ -46,14 +49,9 @@ def get_problem_statement(problem_number: int) -> str:
     """
     Scrape the statement for the specified problem from the Project Euler website and return as a string.
     """
-    url: str = f"https://projecteuler.net/problem={problem_number}"
-    response: "http.client.HTTPResponse" = urlopen(url)
-    response_bytes: bytes = response.read()
-
-    soup = BeautifulSoup(response_bytes, "lxml")
-    problem_content_div: "bs4.element.Tag" = soup.find("div", {"class" : "problem_content"})
-    problem_statement: str = problem_content_div.text
-    return problem_statement
+    url: str = f"https://projecteuler.net/minimal={problem_number}"
+    response: "requests.models.Response" = requests.get(url)
+    return response.text
 
 
 if __name__=="__main__":
