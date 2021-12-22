@@ -19,7 +19,7 @@ Primes::Primes(std::string filename/*="primes"*/) : m_filename{filename} {
 //=============================================================================
 //
 // Subscript operator
-int Primes::operator[](int index) {
+long long int Primes::operator[](int index) {
 	// Sanity check
 	if (!in_index_range(index))
 		throw std::invalid_argument("Index must be within range [1,1999]");
@@ -177,7 +177,7 @@ long long int Primes::get_smallest_multiple(int input) {
 
 long long int Primes::get_sum_to(int max) {
 	long long int sum{0};
-	for (std::vector<int>::iterator it=m_primes.begin(); it!=m_primes.end() && *it<max; ++it) {
+	for (std::vector<long long int>::iterator it=m_primes.begin(); it!=m_primes.end() && *it<max; ++it) {
 		sum += *it;
 	}
 	return sum;
