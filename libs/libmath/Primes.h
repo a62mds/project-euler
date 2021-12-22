@@ -27,12 +27,6 @@ class Primes {
 		// Generates a file containingthe first max prime numbers
 		void gen_file(std::string filename, int max);
 
-		// Checks whether lhs is divisible by rhs
-		bool is_divisible_by(long long int lhs, long long int rhs) { return lhs%rhs==0; }
-
-		// Checks whether or not input is prime
-		bool is_prime(long long int input);
-
 		// Sanity checks on indices and values
 		bool in_index_range(int index) { return 0 <= index <= m_primes.size(); }
 		bool in_prime_range(int input) { return 1 < input && input < m_primes.back(); }
@@ -40,6 +34,12 @@ class Primes {
 	public:
 		// Constructors
 		Primes(std::string filename="primes");
+
+		// Checks whether or not input is prime
+		bool is_prime(long long int input);
+
+		// Checks whether lhs is divisible by rhs
+		bool is_divisible_by(long long int lhs, long long int rhs) { return lhs%rhs==0; }
 
 		// Subscript operator
 		long long int operator[](int index);
