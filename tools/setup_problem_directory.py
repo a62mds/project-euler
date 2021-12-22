@@ -16,9 +16,6 @@ ROOT_DIR = TOOLS_DIR.parent
 PROBLEMS_DIR = ROOT_DIR / "problems"
 TEMPLATE_DIR = TOOLS_DIR / "templates"
 
-MIN_PROBLEM_NUMBER: int = 1
-MAX_PROBLEM_NUMBER: int = 765       # Should probably do this differently so this info doesn't need to be known
-
 PROBLEM_NAME_TEMPLATE: str = "problem-xxx"
 
 
@@ -73,7 +70,6 @@ if __name__ == "__main__":
     PARSER.add_argument(
         "problem_number",
         type=int,
-        choices=range(MIN_PROBLEM_NUMBER, MAX_PROBLEM_NUMBER + 1),
         help="Problem number"
     )
     ARGS: argparse.Namespace = PARSER.parse_args()

@@ -17,9 +17,6 @@ TOOLS_DIR = Path(__file__).parent
 ROOT_DIR = TOOLS_DIR.parent
 PROBLEMS_DIR = ROOT_DIR / "problems"
 
-MIN_PROBLEM_NUMBER: int = 1
-MAX_PROBLEM_NUMBER: int = 765       # Should probably do this differently so this info doesn't need to be known
-
 
 def main(args: argparse.Namespace) -> int:
     """
@@ -50,8 +47,15 @@ def get_problem_statement(problem_number: int) -> str:
     Scrape the statement for the specified problem from the Project Euler website and return as a string.
     """
     url: str = f"https://projecteuler.net/minimal={problem_number}"
-    response: "requests.models.Response" = requests.get(url)
-    return response.text
+    try:
+        response: "requests.models.Response" = requests.get(url)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as err:
+        raise SystemExit(err)
+    problem_statement: str = response.text
+    if "Data for that problem cannot be found" in problem_statement:
+        raise ValueError(f"Invalid problem number: {problem_number}")
+    return problem_statement
 
 
 if __name__=="__main__":
@@ -60,7 +64,6 @@ if __name__=="__main__":
     PARSER.add_argument(
         "problem_number",
         type=int,
-        choices=range(MIN_PROBLEM_NUMBER, MAX_PROBLEM_NUMBER + 1),
         help="Problem number"
     )
     ARGS: argparse.Namespace = PARSER.parse_args()
