@@ -1,11 +1,11 @@
 #ifndef PRIMES_H
 #define PRIMES_H
 
-#include<algorithm>	// for std::count
-#include<cmath>			// for pow
-#include<fstream>		// used to read the file containing prime numbers
-#include<ios>				// exceptions for file io
-#include<sstream>		// used to help read file
+#include<algorithm>
+#include<cmath>
+#include<fstream>
+#include<ios>
+#include<sstream>
 #include<stdexcept>
 #include<string>
 #include<vector>
