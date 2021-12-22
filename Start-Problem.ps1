@@ -12,7 +12,7 @@
 .OUTPUTS
    Solution implementation directory with skeleton files.
 .NOTES
-   Version 1.0
+   Version 2.0
 #>
 Param(
     [Parameter(Mandatory=$true)][Int32]$PROBLEM_NUMBER
