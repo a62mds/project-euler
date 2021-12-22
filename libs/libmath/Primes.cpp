@@ -4,6 +4,7 @@
 #include"Primes.h"
 #include<iostream>
 
+
 //=============================================================================
 //
 // Constructors
@@ -207,4 +208,3 @@ long long int Primes::arith_deriv(long long int input) {
 		return qt + lpd*arith_deriv(qt);	
 	}
 }
-// M. Sullivan. June, 2016
