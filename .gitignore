@@ -201,3 +201,8 @@ _deps
 
 # Test directories
 .test/
+
+
+## VSCode
+
+.vscode/
