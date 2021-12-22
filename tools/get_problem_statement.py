@@ -1,10 +1,5 @@
 """
 Scrape the problem statement from https://projecteuler.net and save in a plain text file.
-
-To do:
-- Use the projecteuler.net/minimal=<PROBLEM_NUMBER> URL to get the problem statement HTML
-- Write problem statement to a markdown file
-  - markdownify?
 """
 import argparse
 from pathlib import Path
