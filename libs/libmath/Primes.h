@@ -11,26 +11,6 @@
 #include<vector>
 
 class Primes {
-	private:
-		// Name of file contiaining list of prime numbers
-		std::string m_filename;
-
-		// Vector into which is read the list of prime numbers from the file
-		std::vector<long long int> m_primes;
-
-		// Number of primes to generate and store in the prime file
-		int m_numPrimes{2000};
-
-		// Reads the list of prime numbers from the file into m_primes
-		std::vector<long long int> read_file(std::string filename);
-
-		// Generates a file containingthe first max prime numbers
-		void gen_file(std::string filename, int max);
-
-		// Sanity checks on indices and values
-		bool in_index_range(int index) { return 0 <= index <= m_primes.size(); }
-		bool in_prime_range(int input) { return 1 < input && input < m_primes.back(); }
-
 	public:
 		// Constructors
 		Primes(std::string filename="primes");
@@ -72,6 +52,26 @@ class Primes {
 
 		// Returns the arithmetic derivative of the input
 		long long int arith_deriv(long long int input);
+
+	private:
+		// Reads the list of prime numbers from the file into m_primes
+		std::vector<long long int> read_file(std::string filename);
+
+		// Generates a file containingthe first max prime numbers
+		void gen_file(std::string filename, int max);
+
+		// Sanity checks on indices and values
+		bool in_index_range(int index) { return 0 <= index <= m_primes.size(); }
+		bool in_prime_range(int input) { return 1 < input && input < m_primes.back(); }
+
+		// Name of file contiaining list of prime numbers
+		std::string m_filename;
+
+		// Vector into which is read the list of prime numbers from the file
+		std::vector<long long int> m_primes;
+
+		// Number of primes to generate and store in the prime file
+		int m_numPrimes{2000};
 
 };
 
