@@ -17,7 +17,7 @@
 [Int32]$RETURN_CODE = 0
 
 Try {
-    If (!(Test-Path .build)) {
+    If (!(Test-Path "$BUILD_DIRECTORY")) {
         New-Item -Type Directory "$BUILD_DIRECTORY"
     }
     Set-Location "$BUILD_DIRECTORY"
