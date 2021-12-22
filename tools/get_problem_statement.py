@@ -33,6 +33,7 @@ def main(args: argparse.Namespace) -> int:
         problem_dir.mkdir(parents=True, exist_ok=True)
         problem_file: Path = (problem_dir / problem_name).with_suffix(".html")
 
+        print(f"Writing problem statement to {problem_file}")
         with problem_file.open("w", encoding="utf-8") as problem_file_object:
             problem_file_object.write(f"Problem {problem_number}\n\n")
             problem_file_object.write(f"{problem_statement.rstrip()}\n")
@@ -47,6 +48,7 @@ def get_problem_statement(problem_number: int) -> str:
     Scrape the statement for the specified problem from the Project Euler website and return as a string.
     """
     url: str = f"https://projecteuler.net/minimal={problem_number}"
+    print(f"Getting problem statement from {url}...")
     try:
         response: "requests.models.Response" = requests.get(url)
         response.raise_for_status()
