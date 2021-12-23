@@ -133,7 +133,7 @@ std::vector<long long int> Primes::get_prime_factors(long long int input) {
 std::vector<int> Primes::get_exponent_vector(long long int input) {
 	std::vector<int> output;
 	std::vector<long long int> prime_factors{get_prime_factors(input)};
-	int count{0};							// holds multiplicity of each prime in prime_factors
+	size_t count{0};						// holds multiplicity of each prime in prime_factors
 	long long int running_product{1};		// helps eliminate unnecessary trailing zeros
 	// Traverse m_primes and count how many times each prime number appears in
 	// the prime number decomposition of input
@@ -146,7 +146,9 @@ std::vector<int> Primes::get_exponent_vector(long long int input) {
 		// Keep track of the size of the product of all of the prime factors
 		// discovered thus far. When the product equals the input, the entire
 		// prime decomposition of input has been found, so exit the loop
-		running_product *= pow(*it, count);
+		for (size_t mult_count=0; mult_count < count; mult_count++) {
+			running_product *= *it;
+		}
 		if (running_product >= input) break;
 	}
 	return output;

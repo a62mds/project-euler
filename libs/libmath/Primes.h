@@ -2,7 +2,6 @@
 #define PRIMES_H
 
 #include <algorithm>
-#include <cmath>
 #include <fstream>
 #include <ios>
 #include <sstream>
