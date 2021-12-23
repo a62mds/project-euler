@@ -14,7 +14,7 @@
 class Primes {
 	public:
 		// Constructors
-		Primes(std::string filename="primes");
+		Primes(std::string filename="primes", size_t maxnum=2000);
 
 		// Checks whether or not input is prime
 		bool is_prime(long long int input);
@@ -72,7 +72,7 @@ class Primes {
 		std::vector<long long int> m_primes;
 
 		// Number of primes to generate and store in the prime file
-		int m_numPrimes{2000};
+		size_t m_numPrimes;
 };
 
 #endif

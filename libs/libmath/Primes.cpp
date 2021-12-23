@@ -8,7 +8,7 @@
 //=============================================================================
 //
 // Constructors
-Primes::Primes(std::string filename/*="primes"*/) : m_filename{filename} {
+Primes::Primes(std::string filename/*="primes"*/, size_t maxnum/*=2000*/) : m_filename{filename}, m_numPrimes{maxnum} {
 	try {
 		m_primes = read_file(m_filename);
 	} catch(std::ios_base::failure) {
