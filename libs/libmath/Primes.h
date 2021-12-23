@@ -1,11 +1,6 @@
 #ifndef PRIMES_H
 #define PRIMES_H
 
-#include <algorithm>
-#include <fstream>
-#include <ios>
-#include <sstream>
-#include <stdexcept>
 #include <string>
 #include <vector>
 

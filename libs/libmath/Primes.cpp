@@ -1,9 +1,14 @@
 //=============================================================================
 // Definitions for class Primes
 //=============================================================================
-#include"Primes.h"
-#include<iostream>
-#include<string>
+#include <algorithm>
+#include <fstream>
+#include <ios>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+
+#include "Primes.h"
 
 
 //=============================================================================
