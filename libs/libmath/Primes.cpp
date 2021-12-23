@@ -53,7 +53,7 @@ std::vector<long long int> Primes::read_file(std::string filename) {
 //=============================================================================
 //
 // Generates a file containing the first max prime numbers
-void Primes::gen_file(std::string filename, int max) {
+void Primes::gen_file(std::string filename, size_t max) {
 	bool is_prime = true;
 	int num{3};
 	std::ofstream output(filename);

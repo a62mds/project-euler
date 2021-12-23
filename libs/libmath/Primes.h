@@ -57,7 +57,7 @@ class Primes {
 		std::vector<long long int> read_file(std::string filename);
 
 		// Generates a file containingthe first max prime numbers
-		void gen_file(std::string filename, int max);
+		void gen_file(std::string filename, size_t max);
 
 		// Sanity checks on indices and values
 		bool in_index_range(size_t index) { return 0 <= index && index <= m_primes.size(); }
