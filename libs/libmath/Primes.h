@@ -13,16 +13,11 @@
 
 class Primes {
 	public:
-		// Constructors
 		Primes(std::string filename="primes", size_t maxnum=2000);
 
-		// Checks whether or not input is prime
 		bool is_prime(long long int input);
-
-		// Checks whether lhs is divisible by rhs
 		bool is_divisible_by(long long int lhs, long long int rhs) { return lhs%rhs==0; }
 
-		// Subscript operator
 		long long int operator[](int index);
 
 		// Get filename
@@ -65,14 +60,9 @@ class Primes {
 		bool in_index_range(int index) { return 0 <= index <= m_primes.size(); }
 		bool in_prime_range(int input) { return 1 < input && input < m_primes.back(); }
 
-		// Name of file contiaining list of prime numbers
-		std::string m_filename;
-
-		// Vector into which is read the list of prime numbers from the file
-		std::vector<long long int> m_primes;
-
-		// Number of primes to generate and store in the prime file
-		size_t m_numPrimes;
+		std::string m_filename;					// Name of file contiaining list of prime numbers
+		std::vector<long long int> m_primes;	// Vector into which is read the list of prime numbers from the file
+		size_t m_numPrimes;						// Number of primes to generate and store in the prime file
 };
 
 #endif
