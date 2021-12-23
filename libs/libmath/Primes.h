@@ -11,9 +11,12 @@
 #include <vector>
 
 
+const size_t DEFAULT_INITIAL_PRIMES_TO_GENERATE = 50000;
+
+
 class Primes {
 	public:
-		Primes(std::string filename="primes", size_t maxnum=2000);
+		Primes(std::string filename="primes", size_t maxnum=DEFAULT_INITIAL_PRIMES_TO_GENERATE);
 
 		bool is_prime(long long int input);
 		bool is_divisible_by(long long int lhs, long long int rhs) { return lhs%rhs==0; }
@@ -58,7 +61,7 @@ class Primes {
 
 		// Sanity checks on indices and values
 		bool in_index_range(int index) { return 0 <= index <= m_primes.size(); }
-		bool in_prime_range(int input) { return 1 < input && input < m_primes.back(); }
+		bool in_prime_range(int input) { return 1 <= input && input <= m_primes.back(); }
 
 		std::string m_filename;					// Name of file contiaining list of prime numbers
 		std::vector<long long int> m_primes;	// Vector into which is read the list of prime numbers from the file

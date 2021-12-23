@@ -8,9 +8,9 @@ TEST_CASE("Testing function Primes::is_prime") {
 	Primes pr;
 
 	CHECK(pr.is_prime(2));
-	CHECK(pr.is_prime(1300979));
+	CHECK(pr.is_prime(611953));
 
-	CHECK(!pr.is_prime(2453422));
+	CHECK(!pr.is_prime(611952));
 }
 
 TEST_CASE("Testing function Primes::is_divisble_by") {
@@ -27,5 +27,5 @@ TEST_CASE("Testing function Primes::get_smallest_prime_divisor") {
 
 	CHECK(pr.get_smallest_prime_divisor(2) == 2);
 	CHECK(pr.get_smallest_prime_divisor(49) == 7);
-	CHECK(pr.get_smallest_prime_divisor(1300979) == 1300979);
+	CHECK(pr.get_smallest_prime_divisor(611953) == 611953);
 }

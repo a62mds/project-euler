@@ -3,6 +3,7 @@
 //=============================================================================
 #include"Primes.h"
 #include<iostream>
+#include<string>
 
 
 //=============================================================================
@@ -78,7 +79,7 @@ void Primes::gen_file(std::string filename, int max) {
 bool Primes::is_prime(long long int input) {
 	// Sanity check (currently only works for integers up to the max indicated)
 	if (!in_prime_range(input))
-		throw std::invalid_argument("Input must be within range [2,17389]");
+		throw std::invalid_argument("Input must be within range [2, " + std::to_string(m_primes.back()) + "]");
 
 	// Traverse the vector of primes from smallest to largest looking for input
 	for (std::vector<long long int>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it)
