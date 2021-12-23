@@ -36,7 +36,7 @@ class Primes {
 
 		// Returns a vector containing the values of the exponents of each prime, in
 		// ascending order, of the prime number decomposition of the input
-		std::vector<int> get_exponent_vector(long long int input);
+		std::vector<size_t> get_exponent_vector(long long int input);
 
 		// Returns smallest positive integer that is divisible by each of the
 		// numbers input, input-1, input-2, ..., 3, 2

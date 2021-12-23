@@ -130,8 +130,8 @@ std::vector<long long int> Primes::get_prime_factors(long long int input) {
 //
 // Returns a vector containing the values of the exponents of each prime, in
 // ascending order, of the prime number decomposition of the input
-std::vector<int> Primes::get_exponent_vector(long long int input) {
-	std::vector<int> output;
+std::vector<size_t> Primes::get_exponent_vector(long long int input) {
+	std::vector<size_t> output;
 	std::vector<long long int> prime_factors{get_prime_factors(input)};
 	size_t count{0};						// holds multiplicity of each prime in prime_factors
 	long long int running_product{1};		// helps eliminate unnecessary trailing zeros
@@ -160,8 +160,8 @@ std::vector<int> Primes::get_exponent_vector(long long int input) {
 // Returns smallest positive integer that is divisible by each of the
 // numbers input, input-1, input-2, ..., 3, 2
 long long int Primes::get_smallest_multiple(int input) {
-	std::vector<int> master_exponent_vector{get_exponent_vector(input)};
-	std::vector<int> inner_exponent_vector;
+	std::vector<size_t> master_exponent_vector{get_exponent_vector(input)};
+	std::vector<size_t> inner_exponent_vector;
 	for (int number=input-1; number >= 2; number--) {
 		inner_exponent_vector = get_exponent_vector(number);
 		// ensure master vector is not shorter than exponent vector of current number
@@ -174,8 +174,11 @@ long long int Primes::get_smallest_multiple(int input) {
 	}
 	// compute the result using the master exponent vector
 	long long int output{1};
-	for (int ii=0; ii!=master_exponent_vector.size(); ii++)
-		output *= pow(m_primes[ii],master_exponent_vector[ii]);
+	for (int ii=0; ii!=master_exponent_vector.size(); ii++) {
+		for (size_t count=0; count < master_exponent_vector[ii]; count++) {
+			output *= m_primes[ii];
+		}
+	}
 	return output;
 }
 
