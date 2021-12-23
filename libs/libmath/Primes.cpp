@@ -199,6 +199,7 @@ long long int Primes::get_gcd(long long int lhs, long long int rhs) {
 		if (is_divisible_by(lhs,denom) && is_divisible_by(rhs,denom))
 			return denom;
 	}
+	return 1;
 }
 
 //=============================================================================
