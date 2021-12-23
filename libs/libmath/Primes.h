@@ -60,7 +60,7 @@ class Primes {
 		void gen_file(std::string filename, int max);
 
 		// Sanity checks on indices and values
-		bool in_index_range(int index) { return 0 <= index && index <= m_primes.size(); }
+		bool in_index_range(size_t index) { return 0 <= index && index <= m_primes.size(); }
 		bool in_prime_range(int input) { return 1 <= input && input <= m_primes.back(); }
 
 		std::string m_filename;					// Name of file contiaining list of prime numbers
