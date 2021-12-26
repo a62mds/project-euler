@@ -26,7 +26,7 @@ Primes::Primes(std::string filename/*="primes"*/, size_t maxnum/*=2000*/) : m_fi
 //=============================================================================
 //
 // Subscript operator
-long long int Primes::operator[](int index) {
+natural Primes::operator[](int index) {
 	// Sanity check
 	if (!in_index_range(index))
 		throw std::invalid_argument("Index must be within range [1,1999]");
@@ -41,12 +41,12 @@ long long int Primes::operator[](int index) {
 //
 // Reads a list of prime numbers from a file whose name is specified
 // as input and outputs a std::vector<int> containing the primes
-std::vector<long long int> Primes::read_file(std::string filename) {
-	std::vector<long long int> output;			// vector for storing prime numbers
+std::vector<natural> Primes::read_file(std::string filename) {
+	std::vector<natural> output;			// vector for storing prime numbers
 	std::ifstream ifs(filename);	// create ifstream from prime number file
 	if (!ifs) throw std::ios_base::failure("Could not open " + filename);
 	
-	long long int value;
+	natural value;
 	while (!ifs.eof()) {
 		ifs >> value;
 		output.push_back(value);
@@ -62,16 +62,16 @@ void Primes::gen_file(std::string filename, size_t max) {
 	bool is_prime = true;
 	int num{3};
 	std::ofstream output(filename);
-	std::vector<long long int> primes; 
+	std::vector<natural> primes; 
 	primes.push_back(2);
 	while (primes.size() < max) {
-		for (std::vector<long long int>::iterator it=primes.begin(); it!=primes.end(); ++it) { 
+		for (std::vector<natural>::iterator it=primes.begin(); it!=primes.end(); ++it) { 
 			if (is_divisible_by(num, *it) && num!=*it) { is_prime=false; break; }
 		}
 		if (is_prime) { primes.push_back(num); }
 		num+=2; is_prime=true;
 	}
-	for (std::vector<long long int>::iterator it=primes.begin(); it!=primes.end(); ++it) {
+	for (std::vector<natural>::iterator it=primes.begin(); it!=primes.end(); ++it) {
 		output << *it << std::endl;
 	}
 	output.close();
@@ -81,13 +81,13 @@ void Primes::gen_file(std::string filename, size_t max) {
 //
 // Checks the whether input is prime by comparing it against the primes stored
 // in the member variable std::vector<int> m_primes
-bool Primes::is_prime(long long int input) {
+bool Primes::is_prime(natural input) {
 	// Sanity check (currently only works for integers up to the max indicated)
 	if (!in_prime_range(input))
 		throw std::invalid_argument("Input must be within range [2, " + std::to_string(m_primes.back()) + "]");
 
 	// Traverse the vector of primes from smallest to largest looking for input
-	for (std::vector<long long int>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it)
+	for (std::vector<natural>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it)
 		if (input == *it) return true;
 	// If not found, number is not prime
 	return false;
@@ -96,9 +96,9 @@ bool Primes::is_prime(long long int input) {
 //=============================================================================
 //
 // Find the smallest prime divisor of an integer
-long long int Primes::get_smallest_prime_divisor(long long int input) {
+natural Primes::get_smallest_prime_divisor(natural input) {
 	// Traverse the vector of primes checking the divisibility of input by each
-	for (std::vector<long long int>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it)
+	for (std::vector<natural>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it)
 		if (is_divisible_by(input,*it)) return *it;
 	// if no divisors found, throw an out of range exception
 	throw std::out_of_range("No prime divisors < 17389 found");
@@ -107,13 +107,13 @@ long long int Primes::get_smallest_prime_divisor(long long int input) {
 //=============================================================================
 //
 // Returns a vector containing the prime factors (with repetition) of the input
-std::vector<long long int> Primes::get_prime_factors(long long int input) {
-	std::vector<long long int> output;
+std::vector<natural> Primes::get_prime_factors(natural input) {
+	std::vector<natural> output;
 	// 
-	long long int quotient{input};
+	natural quotient{input};
 	while (quotient != 1) {
 		// Find the smallest prime divisor of the quotient
-		long long int smallest_prime_divisor = get_smallest_prime_divisor(quotient);
+		natural smallest_prime_divisor = get_smallest_prime_divisor(quotient);
 		// Add to the vector of prime divisors
 		output.push_back(smallest_prime_divisor);
 		// Divide out the smallest prime divisor for the next iteration
@@ -135,14 +135,14 @@ std::vector<long long int> Primes::get_prime_factors(long long int input) {
 //
 // Returns a vector containing the values of the exponents of each prime, in
 // ascending order, of the prime number decomposition of the input
-std::vector<size_t> Primes::get_exponent_vector(long long int input) {
+std::vector<size_t> Primes::get_exponent_vector(natural input) {
 	std::vector<size_t> output;
-	std::vector<long long int> prime_factors{get_prime_factors(input)};
+	std::vector<natural> prime_factors{get_prime_factors(input)};
 	size_t count{0};						// holds multiplicity of each prime in prime_factors
-	long long int running_product{1};		// helps eliminate unnecessary trailing zeros
+	natural running_product{1};		// helps eliminate unnecessary trailing zeros
 	// Traverse m_primes and count how many times each prime number appears in
 	// the prime number decomposition of input
-	for (std::vector<long long int>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it) {
+	for (std::vector<natural>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it) {
 		if (*it > input) break;
 		count = std::count(prime_factors.begin(), prime_factors.end(), *it);
 		// Push back the count into the output vector, recording the exponent of the
@@ -164,7 +164,7 @@ std::vector<size_t> Primes::get_exponent_vector(long long int input) {
 //
 // Returns smallest positive integer that is divisible by each of the
 // numbers input, input-1, input-2, ..., 3, 2
-long long int Primes::get_smallest_multiple(int input) {
+natural Primes::get_smallest_multiple(int input) {
 	std::vector<size_t> master_exponent_vector{get_exponent_vector(input)};
 	std::vector<size_t> inner_exponent_vector;
 	for (int number=input-1; number >= 2; number--) {
@@ -178,7 +178,7 @@ long long int Primes::get_smallest_multiple(int input) {
 				master_exponent_vector[ii] = inner_exponent_vector[ii];
 	}
 	// compute the result using the master exponent vector
-	long long int output{1};
+	natural output{1};
 	for (int ii=0; ii!=master_exponent_vector.size(); ii++) {
 		for (size_t count=0; count < master_exponent_vector[ii]; count++) {
 			output *= m_primes[ii];
@@ -187,9 +187,9 @@ long long int Primes::get_smallest_multiple(int input) {
 	return output;
 }
 
-long long int Primes::get_sum_to(int max) {
-	long long int sum{0};
-	for (std::vector<long long int>::iterator it=m_primes.begin(); it!=m_primes.end() && *it<max; ++it) {
+natural Primes::get_sum_to(int max) {
+	natural sum{0};
+	for (std::vector<natural>::iterator it=m_primes.begin(); it!=m_primes.end() && *it<max; ++it) {
 		sum += *it;
 	}
 	return sum;
@@ -198,9 +198,9 @@ long long int Primes::get_sum_to(int max) {
 //=============================================================================
 //
 // Returns GCD of the two inputs
-long long int Primes::get_gcd(long long int lhs, long long int rhs) {
-	long long int min{lhs <= rhs ? lhs : rhs};
-	for (long long int denom=min; denom>=1; denom--) {
+natural Primes::get_gcd(natural lhs, natural rhs) {
+	natural min{lhs <= rhs ? lhs : rhs};
+	for (natural denom=min; denom>=1; denom--) {
 		if (is_divisible_by(lhs,denom) && is_divisible_by(rhs,denom))
 			return denom;
 	}
@@ -210,13 +210,13 @@ long long int Primes::get_gcd(long long int lhs, long long int rhs) {
 //=============================================================================
 //
 // Returns the arithmetic derivative of 
-long long int Primes::arith_deriv(long long int input) {
+natural Primes::arith_deriv(natural input) {
 	if (is_prime(input)) { 
 		return 1;
 	}
 	else {
-		long long int lpd{get_smallest_prime_divisor(input)};
-		long long int qt{input/lpd};
+		natural lpd{get_smallest_prime_divisor(input)};
+		natural qt{input/lpd};
 		return qt + lpd*arith_deriv(qt);	
 	}
 }
