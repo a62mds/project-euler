@@ -5,10 +5,11 @@
 #include <vector>
 
 
+namespace math {
+
 const size_t DEFAULT_INITIAL_PRIMES_TO_GENERATE = 50000;
 
 typedef long long unsigned natural;
-
 
 class Primes {
 	public:
@@ -63,5 +64,7 @@ class Primes {
 		std::vector<natural> m_primes;	// Vector into which is read the list of prime numbers from the file
 		size_t m_numPrimes;						// Number of primes to generate and store in the prime file
 };
+
+}; // namespace math
 
 #endif

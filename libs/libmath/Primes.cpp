@@ -11,6 +11,8 @@
 #include "Primes.h"
 
 
+namespace math {
+
 //=============================================================================
 //
 // Constructors
@@ -220,3 +222,5 @@ natural Primes::arith_deriv(natural input) {
 		return qt + lpd*arith_deriv(qt);	
 	}
 }
+
+}; // namespace math

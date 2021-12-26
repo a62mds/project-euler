@@ -5,7 +5,7 @@
 
 
 TEST_CASE("Testing function Primes::is_prime") {
-	Primes pr;
+	math::Primes pr;
 
 	CHECK(pr.is_prime(2));
 	CHECK(pr.is_prime(611953));
@@ -14,7 +14,7 @@ TEST_CASE("Testing function Primes::is_prime") {
 }
 
 TEST_CASE("Testing function Primes::is_divisble_by") {
-	Primes pr;
+	math::Primes pr;
 
 	CHECK(pr.is_divisible_by(4, 2));
 	CHECK(pr.is_divisible_by(2453422, 2));
@@ -23,7 +23,7 @@ TEST_CASE("Testing function Primes::is_divisble_by") {
 }
 
 TEST_CASE("Testing function Primes::get_smallest_prime_divisor") {
-	Primes pr;
+	math::Primes pr;
 
 	CHECK(pr.get_smallest_prime_divisor(2) == 2);
 	CHECK(pr.get_smallest_prime_divisor(49) == 7);
