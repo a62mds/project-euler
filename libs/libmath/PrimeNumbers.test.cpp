@@ -19,3 +19,12 @@ TEST_CASE("Testing function Primes::get_smallest_prime_divisor") {
 	CHECK(pr.get_smallest_prime_divisor(49) == 7);
 	CHECK(pr.get_smallest_prime_divisor(611953) == 611953);
 }
+
+TEST_CASE("Test function math::Primes::get_prime_factors") {
+	math::Primes primes;
+
+	CHECK(primes.get_prime_factors(2) == std::vector<math::numbers::natural>{2});
+	CHECK(primes.get_prime_factors(3) == std::vector<math::numbers::natural>{3});
+	CHECK(primes.get_prime_factors(4) == std::vector<math::numbers::natural>{2, 2});
+	CHECK(primes.get_prime_factors(2*2*2*2*3*3*3*3*3*5*5*5*7*7*7*7) == std::vector<math::numbers::natural>{2, 2, 2, 2, 3, 3, 3, 3, 3, 5, 5, 5, 7, 7, 7, 7});
+}

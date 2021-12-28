@@ -99,11 +99,13 @@ bool Primes::is_prime(numbers::natural input) {
 //
 // Find the smallest prime divisor of an integer
 numbers::natural Primes::get_smallest_prime_divisor(numbers::natural input) {
-	// Traverse the vector of primes checking the divisibility of input by each
-	for (std::vector<numbers::natural>::iterator it=m_primes.begin(); it!=m_primes.end(); ++it)
-		if (is_divisible_by(input,*it)) return *it;
-	// if no divisors found, throw an out of range exception
-	throw std::out_of_range("No prime divisors < 17389 found");
+	for (auto& prime_number : m_primes) {
+		if (is_divisible_by(input, prime_number)) {
+			return prime_number;
+		}
+	}
+
+	throw std::out_of_range("No prime divisors < " + std::to_string(m_primes.back()) + " found");
 }
 
 //=============================================================================
@@ -111,20 +113,17 @@ numbers::natural Primes::get_smallest_prime_divisor(numbers::natural input) {
 // Returns a vector containing the prime factors (with repetition) of the input
 std::vector<numbers::natural> Primes::get_prime_factors(numbers::natural input) {
 	std::vector<numbers::natural> output;
-	// 
 	numbers::natural quotient{input};
 	while (quotient != 1) {
-		// Find the smallest prime divisor of the quotient
 		numbers::natural smallest_prime_divisor = get_smallest_prime_divisor(quotient);
-		// Add to the vector of prime divisors
 		output.push_back(smallest_prime_divisor);
-		// Divide out the smallest prime divisor for the next iteration
-		quotient /= smallest_prime_divisor;
-
-		if (quotient == 1) break;
 		// Check whether the quotient is prime; if it is, all prime divisors have
-		// been found. Add to the vector of prime divisors and exit the loop
-		if (is_prime(quotient)) { output.push_back(quotient); break; }
+		// been found
+		if (quotient == smallest_prime_divisor) {
+			break;
+		}
+
+		quotient /= smallest_prime_divisor;
 	}
 	// Sort the vector of prime divisors from smallest to largest. Note that 
 	// the multiplicity of each divisor can be > 1 (e.g. get_prime_factors(8) will
