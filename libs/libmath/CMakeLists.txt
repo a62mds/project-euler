@@ -11,15 +11,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add the library
 set(HEADERS
+    NaturalNumbers.h
     Primes.h
 )
 set(SOURCES
+    NaturalNumbers.cpp
     Primes.cpp
 )
 add_library(libmath "${SOURCES}" "${HEADERS}")
 
 if(${ENABLE_TESTS})
     set(TEST_SOURCES
+        Math.test.cpp
+        NaturalNumbers.test.cpp
         Primes.test.cpp
     )
     add_executable(test-libmath "${TEST_SOURCES}")

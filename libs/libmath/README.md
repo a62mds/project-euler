@@ -9,3 +9,7 @@ General-purpose library with tools for performing mathematical calculations.
 ### Primes
 
 Tools for computing and working with prime numbers.
+
+### NaturalNumbers
+
+Tools for working with natural numbers.
