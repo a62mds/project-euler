@@ -25,6 +25,24 @@ numbers::natural get_gcd(numbers::natural lhs, numbers::natural rhs);
  */
 std::vector<numbers::natural> get_multiples_less_than(numbers::natural multiplicand, numbers::natural upper_bound);
 
+namespace sequences {
+    /**
+     * Generate the Fibonacci sequence
+     */
+    class Fibonacci {
+        public:
+            Fibonacci() : _next_value(1ull), _current_value(0ull) {}
+
+            /**
+             * Get the next term in the sequence
+             */
+            numbers::natural next();
+        private:
+            numbers::natural _next_value;
+            numbers::natural _current_value;
+    };
+}; // namespace sequences
+
 }; // namespace math
 
 #endif

@@ -35,3 +35,13 @@ TEST_CASE("Test function math::get_multiples_less_than") {
     CHECK(multiples_of_1_less_than_100.front() == 1);
     CHECK(multiples_of_1_less_than_100.back() == 99);
 }
+
+TEST_CASE("Test class math::sequences::Fibonacci") {
+    SUBCASE("Test first 10 terms") {
+        math::sequences::Fibonacci fib;
+        std::vector<math::numbers::natural> first_10_terms{0, 1, 1, 2, 3, 5, 8, 13, 21, 34};
+        for (auto& term : first_10_terms) {
+            CHECK(term == fib.next());
+        }
+    }
+}

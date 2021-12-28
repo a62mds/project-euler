@@ -39,4 +39,12 @@ std::vector<numbers::natural> get_multiples_less_than(numbers::natural multiplic
     return multiples;
 }
 
+numbers::natural sequences::Fibonacci::next() {
+    numbers::natural current_value = _current_value;
+    _current_value = _next_value;
+    _next_value += current_value;
+
+    return current_value;
+}
+
 }; // namespace math
