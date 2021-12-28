@@ -12,3 +12,14 @@ set(SOURCES
     problem-002/problem-002.cpp
 )
 add_executable(test-solution-to-problem-002 ${SOURCES})
+
+# add the libraries
+set(LIB_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../../libs/")
+set(LIBS
+    libmath
+)
+foreach(LIB "${LIBS}")
+    set(LIB_PATHS "${LIB_PATHS}" "${LIB_ROOT}/${LIB}/.build/Debug/${LIB}.lib")
+endforeach()
+target_include_directories(test-solution-to-problem-002 PRIVATE "${LIB_ROOT}")
+target_link_libraries(test-solution-to-problem-002 PRIVATE "${LIB_PATHS}")

@@ -1,26 +1,25 @@
-// problem-002.cpp
-#include<iostream>
-using namespace std;
+#include <iostream>
+
+#include <libmath/NaturalNumbers.h>
+
+
+const math::numbers::natural UPPER_BOUND = 4000000ull;
+
 
 int main() {
 
-	int n_max{4000000}; // upper bound
-	int sum{0};					// running total
-	int temp_term{0};		// temporary value to help navigate the Fib. sequence
-	int old_term{0};		// previous term in the sequence
-	int cur_term{1};		// current term in the sequence
+	math::sequences::Fibonacci fib;
 
-	for (int index=1;cur_term+old_term<=n_max&&index<=100000;index++) {
-		// calculate next term in the sequence and update old_term appropriately
-		temp_term = cur_term;
-		cur_term += old_term;
-		old_term = temp_term;
-
-		// add curr_term to running total if it is even
-		if (cur_term%2==0) { sum += cur_term; }
+	math::numbers::natural term = fib.next();
+	math::numbers::natural sum = term;
+	while (term < UPPER_BOUND) {
+		term = fib.next();
+		if (math::is_divisible_by(term, 2)) {
+			sum += term;
+		}
 	}
 
-	cout << "Sum = " << sum << endl;
+	std::cout << "Sum = " << sum << std::endl;
 
-    return 0;
+	return 0;
 }
