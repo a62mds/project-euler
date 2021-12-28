@@ -8,7 +8,7 @@
 #include <sstream>
 #include <stdexcept>
 
-#include "Primes.h"
+#include "PrimeNumbers.h"
 
 
 namespace math {

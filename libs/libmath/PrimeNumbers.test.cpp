@@ -1,6 +1,6 @@
 #include "doctest.h"
 
-#include"Primes.h"
+#include"PrimeNumbers.h"
 
 
 TEST_CASE("Testing function Primes::is_prime") {

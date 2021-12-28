@@ -6,7 +6,7 @@ General-purpose library with tools for performing mathematical calculations.
 
 ## Modules
 
-### Primes
+### PrimeNumbers
 
 Tools for computing and working with prime numbers.
 

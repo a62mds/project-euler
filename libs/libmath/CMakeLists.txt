@@ -12,11 +12,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # add the library
 set(HEADERS
     NaturalNumbers.h
-    Primes.h
+    PrimeNumbers.h
 )
 set(SOURCES
     NaturalNumbers.cpp
-    Primes.cpp
+    PrimeNumbers.cpp
 )
 add_library(libmath "${SOURCES}" "${HEADERS}")
 
@@ -24,7 +24,7 @@ if(${ENABLE_TESTS})
     set(TEST_SOURCES
         Math.test.cpp
         NaturalNumbers.test.cpp
-        Primes.test.cpp
+        PrimeNumbers.test.cpp
     )
     add_executable(test-libmath "${TEST_SOURCES}")
     target_include_directories(test-libmath PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../external/doctest/doctest/")
