@@ -36,6 +36,23 @@ TEST_CASE("Test function math::get_multiples_less_than") {
     CHECK(multiples_of_1_less_than_100.back() == 99);
 }
 
+TEST_CASE("Test function math::is_palindrome") {
+    SUBCASE("Test palindromic numbers are properly detected") {
+        CHECK(math::is_palindrome(1));
+        CHECK(math::is_palindrome(22));
+        CHECK(math::is_palindrome(121));
+        CHECK(math::is_palindrome(5445));
+        CHECK(math::is_palindrome(90009));
+        CHECK(math::is_palindrome(87656765678));
+    }
+
+    SUBCASE("Test non-palindromic numbers are properly rejected") {
+        CHECK(!math::is_palindrome(12));
+        CHECK(!math::is_palindrome(987654321));
+        CHECK(!math::is_palindrome(123456787956));
+    }
+}
+
 TEST_CASE("Test class math::sequences::Fibonacci") {
     SUBCASE("Test first 10 terms") {
         math::sequences::Fibonacci fib;

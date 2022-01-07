@@ -7,6 +7,16 @@ bool is_divisible_by(numbers::natural numerator, numbers::natural denominator) {
     return numerator % denominator == 0;
 }
 
+bool is_palindrome(numbers::natural number) {
+    numbers::natural original_number = number;
+    numbers::natural reversed_number = 0;
+    while (number != 0) {
+        reversed_number = (reversed_number * 10) + number % 10;
+        number /= 10;
+    }
+    return reversed_number == original_number;
+}
+
 numbers::natural get_gcd(numbers::natural lhs, numbers::natural rhs) {
     numbers::natural min{lhs <= rhs ? lhs : rhs};
     for (numbers::natural denom=min; denom >= 1; denom--) {

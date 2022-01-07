@@ -16,6 +16,11 @@ namespace numbers {
 bool is_divisible_by(numbers::natural numerator, numbers::natural denominator);
 
 /**
+ * Check if the number is a palendromic number
+ */
+bool is_palindrome(numbers::natural number);
+
+/**
  * Compute the GCD of the inputs
  */
 numbers::natural get_gcd(numbers::natural lhs, numbers::natural rhs);
