@@ -40,6 +40,10 @@ numbers::natural get_smallest_n_digit_number(size_t num_digits);
  */
 numbers::natural get_largest_n_digit_number(size_t num_digits);
 
+namespace operations {
+    numbers::natural exponentiate(numbers::natural base, size_t exponent);
+}; // namesapce operations
+
 namespace sequences {
     /**
      * Generate the Fibonacci sequence

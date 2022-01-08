@@ -50,24 +50,26 @@ std::vector<numbers::natural> get_multiples_less_than(numbers::natural multiplic
 }
 
 numbers::natural get_smallest_n_digit_number(size_t num_digits) {
-    if (num_digits <= 1) {
-        return 0;
-    }
-    // TODO: Move duplicate code for computing exponent to function
-    numbers::natural smallest_n_digit_number = 1;
-    for (size_t exponent=1; exponent < num_digits; exponent++) {
-        smallest_n_digit_number *= 10;
-    }
-    return smallest_n_digit_number;
+    return num_digits > 1 ? operations::exponentiate(10, num_digits - 1) : 0;
 }
 
 numbers::natural get_largest_n_digit_number(size_t num_digits) {
-    // TODO: Move duplicate code for computing exponent to function
-    numbers::natural smallest_n_plus_one_digit_number = 1;
-    for (size_t exponent=1; exponent < num_digits + 1; exponent++) {
-        smallest_n_plus_one_digit_number *= 10;
+    return operations::exponentiate(10, num_digits) - 1;
+}
+
+numbers::natural operations::exponentiate(numbers::natural base, size_t exponent) {
+    if (exponent == 0) {
+        return 1;
     }
-    return smallest_n_plus_one_digit_number - 1;
+    if (base == 0 || base == 1) {
+        return base;
+    }
+
+    numbers::natural result = 1;
+    for (size_t current_exponent=1; current_exponent <= exponent; current_exponent++) {
+        result *= base;
+    }
+    return result;
 }
 
 numbers::natural sequences::Fibonacci::next() {

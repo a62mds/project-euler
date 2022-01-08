@@ -65,6 +65,36 @@ TEST_CASE("Test function math::get_largest_n_digit_number") {
     CHECK(math::get_largest_n_digit_number(15) == 999999999999999);
 }
 
+TEST_CASE("Test function math::operations::exponentiate") {
+    SUBCASE("Test powers of 0") {
+        CHECK(math::operations::exponentiate(0, 0) == 1);
+        CHECK(math::operations::exponentiate(0, 1) == 0);
+        CHECK(math::operations::exponentiate(0, 25) == 0);
+    }
+    SUBCASE("Test powers of 1") {
+        CHECK(math::operations::exponentiate(1, 0) == 1);
+        CHECK(math::operations::exponentiate(1, 52) == 1);
+    }
+    SUBCASE("Test powers of 2") {
+        CHECK(math::operations::exponentiate(2, 0) == 1);
+        CHECK(math::operations::exponentiate(2, 1) == 2);
+        CHECK(math::operations::exponentiate(2, 2) == 4);
+        CHECK(math::operations::exponentiate(2, 10) == 1024);
+    }
+    SUBCASE("Test powers of 5") {
+        CHECK(math::operations::exponentiate(5, 0) == 1);
+        CHECK(math::operations::exponentiate(5, 1) == 5);
+        CHECK(math::operations::exponentiate(5, 2) == 25);
+        CHECK(math::operations::exponentiate(5, 5) == 3125);
+    }
+    SUBCASE("Test powers of 10") {
+        CHECK(math::operations::exponentiate(10, 0) == 1);
+        CHECK(math::operations::exponentiate(10, 1) == 10);
+        CHECK(math::operations::exponentiate(10, 2) == 100);
+        CHECK(math::operations::exponentiate(10, 15) == 1000000000000000);
+    }
+}
+
 TEST_CASE("Test class math::sequences::Fibonacci") {
     SUBCASE("Test first 10 terms") {
         math::sequences::Fibonacci fib;
