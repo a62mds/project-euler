@@ -30,6 +30,16 @@ numbers::natural get_gcd(numbers::natural lhs, numbers::natural rhs);
  */
 std::vector<numbers::natural> get_multiples_less_than(numbers::natural multiplicand, numbers::natural upper_bound);
 
+/**
+ * Get the smallest n-digit number
+ */
+numbers::natural get_smallest_n_digit_number(size_t num_digits);
+
+/**
+ * Get the largest n-digit number
+ */
+numbers::natural get_largest_n_digit_number(size_t num_digits);
+
 namespace sequences {
     /**
      * Generate the Fibonacci sequence

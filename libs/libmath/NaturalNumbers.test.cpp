@@ -53,6 +53,18 @@ TEST_CASE("Test function math::is_palindrome") {
     }
 }
 
+TEST_CASE("Test class math::get_smallest_n_digit_number") {
+    CHECK(math::get_smallest_n_digit_number(1) == 0);
+    CHECK(math::get_smallest_n_digit_number(2) == 10);
+    CHECK(math::get_smallest_n_digit_number(15) == 100000000000000);
+}
+
+TEST_CASE("Test class math::get_largest_n_digit_number") {
+    CHECK(math::get_largest_n_digit_number(1) == 9);
+    CHECK(math::get_largest_n_digit_number(2) == 99);
+    CHECK(math::get_largest_n_digit_number(15) == 999999999999999);
+}
+
 TEST_CASE("Test class math::sequences::Fibonacci") {
     SUBCASE("Test first 10 terms") {
         math::sequences::Fibonacci fib;
