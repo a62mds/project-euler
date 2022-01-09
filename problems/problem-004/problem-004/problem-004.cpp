@@ -1,69 +1,34 @@
 // problem-004.cpp
-#include<iostream>
-#include<string>
-#include<sstream>
-using namespace std;
+#include <algorithm>
+#include <iostream>
 
-// Convert integer to string
-string int_to_string(int number) {
-	stringstream ss;
-	ss << number;
-	return ss.str();
-}
+#include <libmath/PrimeNumbers.h>
 
-// Convert string (containing an integer number) to integer
-int string_to_int(string input) {
-	stringstream ss;
-	ss << input;
-	int output{0};
-	ss >> output;
-	return output;
-}
-
-// Reverse the order of the characters in a string (return backward string)
-string reverse(string input) {
-	stringstream ss;
-	// range between string::rbegin and string::rend contains all the characters
-	// of the string in reverse order
-	for (string::reverse_iterator rit=input.rbegin();rit!=input.rend();rit++) {
-		ss << *rit;
-	}
-	return ss.str();
-}
-
-// Takes a string of length n and returns creates a palindromic string of
-// length 2n by concatinating input and reverse(input)
-string palindrome(string input) {
-	stringstream ss;
-	ss << input << reverse(input);
-	return ss.str();
-}
-
-// Test if input is a three digit number
-bool is_three_digits(int input) { return 100 <= input && input <= 999; }
-// Test whether lhs is divisible by rhs
-bool is_divisble_by(int lhs, int rhs) { return lhs%rhs==0; }
-
-// Test whether input is the product of two three digit numbers
-bool is_prod_three(int input) {
-	for (int num=100; num <= 999; num++) {
-		if (is_divisble_by(input,num)&&is_three_digits(input/num)) { return true; }
-	}
-	return false;
-}
 
 int main() {
-	int n_pal{0};		// initialize variable for holding palindromic integers
-	// Run through all three digit numbers from 999 backwards to 100
-	for (int num=999; num >= 100; num--) {
-		// create 6 digit palindrome from three digit number
-		n_pal = string_to_int(palindrome(int_to_string(num)));
-		// Test whether it is a product of two three digit numbers
-		if (is_prod_three(n_pal)) {
-			cout << "\n  >>  " << n_pal << endl;
-			break;
+	std::vector<math::numbers::natural> palindromic_products_of_3_digit_numbers;
+
+	math::numbers::natural largest_3_digit_number = math::get_largest_n_digit_number(3);
+	math::numbers::natural smallest_3_digit_number = math::get_smallest_n_digit_number(3);
+	for (math::numbers::natural left_multiplicand=largest_3_digit_number; left_multiplicand >= smallest_3_digit_number; left_multiplicand--) {
+		for (math::numbers::natural right_multiplicand=left_multiplicand; right_multiplicand >= smallest_3_digit_number; right_multiplicand--) {
+			math::numbers::natural product = left_multiplicand * right_multiplicand;
+			if (math::is_palindrome(product)) {
+				palindromic_products_of_3_digit_numbers.push_back(product);
+			}
 		}
 	}
 
-    return 0;
+	math::numbers::natural largest_palindromic_product_of_3_digit_numbers = *std::max_element(
+		palindromic_products_of_3_digit_numbers.begin(),
+		palindromic_products_of_3_digit_numbers.end()
+	);
+
+	if (largest_palindromic_product_of_3_digit_numbers > 0) {
+		std::cout << "Largest palindrome made from the product of two 3-digit numbers: " << largest_palindromic_product_of_3_digit_numbers << std::endl;
+	} else {
+		std::cerr << "Failed to find palindrome made from the product of two 3-digit numbers" << std::endl;
+	}
+
+	return 0;
 }
