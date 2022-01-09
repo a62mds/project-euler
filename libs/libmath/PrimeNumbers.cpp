@@ -40,7 +40,6 @@ numbers::natural Primes::operator[](int index) {
 
 //=============================================================================
 //
-//
 // Reads a list of prime numbers from a file whose name is specified
 // as input and outputs a std::vector<int> containing the primes
 std::vector<numbers::natural> Primes::read_file(std::string filename) {
@@ -110,7 +109,7 @@ numbers::natural Primes::get_smallest_prime_divisor(numbers::natural input) {
 
 //=============================================================================
 //
-// Returns a vector containing the prime factors (with repetition) of the input
+// Returns a vector containing the prime factors (with repetition) of the input, sorted in ascending order
 std::vector<numbers::natural> Primes::get_prime_factors(numbers::natural input) {
 	std::vector<numbers::natural> output;
 	numbers::natural quotient{input};
@@ -188,6 +187,9 @@ numbers::natural Primes::get_smallest_multiple(int input) {
 	return output;
 }
 
+//=============================================================================
+//
+// Returns the sum of the prime numbers less than the specified maximum
 numbers::natural Primes::get_sum_to(int max) {
 	numbers::natural sum{0};
 	for (std::vector<numbers::natural>::iterator it=m_primes.begin(); it!=m_primes.end() && *it<max; ++it) {
@@ -198,7 +200,7 @@ numbers::natural Primes::get_sum_to(int max) {
 
 //=============================================================================
 //
-// Returns the arithmetic derivative of 
+// Returns the arithmetic derivative of the input
 numbers::natural Primes::arith_deriv(numbers::natural input) {
 	if (is_prime(input)) { 
 		return 1;
