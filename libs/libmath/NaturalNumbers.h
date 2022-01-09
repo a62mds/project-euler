@@ -46,6 +46,18 @@ namespace operations {
 
 namespace sequences {
     /**
+     * Generate the sequence of natural numbers
+     */
+    class Natural {
+        public:
+            Natural() : _next_value(0ull) {}
+
+            numbers::natural next() { return _next_value++; }
+        private:
+            numbers::natural _next_value;
+    };
+
+    /**
      * Generate the Fibonacci sequence
      */
     class Fibonacci {

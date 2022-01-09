@@ -95,6 +95,16 @@ TEST_CASE("Test function math::operations::exponentiate") {
     }
 }
 
+TEST_CASE("Test class math::sequences::Natural") {
+    SUBCASE("Test first 10 terms") {
+        math::sequences::Natural nat;
+        std::vector<math::numbers::natural> first_10_terms{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        for (auto& term : first_10_terms) {
+            CHECK(term == nat.next());
+        }
+    }
+}
+
 TEST_CASE("Test class math::sequences::Fibonacci") {
     SUBCASE("Test first 10 terms") {
         math::sequences::Fibonacci fib;
