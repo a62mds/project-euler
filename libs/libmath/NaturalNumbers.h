@@ -47,30 +47,44 @@ namespace operations {
 
 namespace sequences {
     /**
+     * Abstract base class for sequence classes
+     */
+    class Sequence {
+        public:
+            Sequence(numbers::natural initial_value=0) : _next_value(initial_value) {}
+
+            /**
+             * Get the next term in the sequence.
+             * 
+             * This must be implemented by concrete `Sequence` classes
+             */
+            virtual numbers::natural next() = 0;
+        protected:
+            numbers::natural _next_value;
+    };
+
+    /**
      * Generate the sequence of natural numbers
      */
-    class Natural {
+    class Natural : public Sequence {
         public:
-            Natural() : _next_value(0ull) {}
-
+            Natural() {}
+    
+            /**
+             * Get the next term in the sequence.
+             */
             numbers::natural next();
-        private:
-            numbers::natural _next_value;
     };
 
     /**
      * Generate the Fibonacci sequence
      */
-    class Fibonacci {
+    class Fibonacci : public Sequence {
         public:
-            Fibonacci() : _next_value(1ull), _current_value(0ull) {}
+            Fibonacci() : Sequence(1ull), _current_value(0ull) {}
 
-            /**
-             * Get the next term in the sequence
-             */
             numbers::natural next();
         private:
-            numbers::natural _next_value;
             numbers::natural _current_value;
     };
 }; // namespace sequences
