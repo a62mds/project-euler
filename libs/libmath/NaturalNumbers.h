@@ -59,6 +59,11 @@ namespace sequences {
              * This must be implemented by concrete `Sequence` classes
              */
             virtual numbers::natural next() = 0;
+
+            /**
+             * Get the next `how_many` terms in the sequence
+             */
+            std::vector<numbers::natural> next(size_t how_many);
         protected:
             numbers::natural _next_value;
     };
@@ -69,11 +74,16 @@ namespace sequences {
     class Natural : public Sequence {
         public:
             Natural() {}
-    
+
             /**
              * Get the next term in the sequence.
              */
             numbers::natural next();
+
+            /**
+             * Get the next `how_many` terms in the sequence
+             */
+            using Sequence::next;
     };
 
     /**
@@ -83,7 +93,15 @@ namespace sequences {
         public:
             Fibonacci() : Sequence(1ull), _current_value(0ull) {}
 
+            /**
+             * Get the next term in the sequence.
+             */
             numbers::natural next();
+
+            /**
+             * Get the next `how_many` terms in the sequence
+             */
+            using Sequence::next;
         private:
             numbers::natural _current_value;
     };

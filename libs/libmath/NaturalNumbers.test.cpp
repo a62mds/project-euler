@@ -96,21 +96,51 @@ TEST_CASE("Test function math::operations::exponentiate") {
 }
 
 TEST_CASE("Test class math::sequences::Natural") {
-    SUBCASE("Test first 10 terms") {
+    std::vector<math::numbers::natural> first_10_terms{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::vector<math::numbers::natural> second_10_terms{10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+
+    SUBCASE("Test next() for first 10 terms") {
         math::sequences::Natural nat;
-        std::vector<math::numbers::natural> first_10_terms{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         for (auto& term : first_10_terms) {
             CHECK(term == nat.next());
         }
     }
+
+    SUBCASE("Test next(10) and next() for first 11 terms") {
+        math::sequences::Natural nat;
+        CHECK(first_10_terms == nat.next(10));
+
+        CHECK(10 == nat.next());
+    }
+
+    SUBCASE("Test next(10) and next(10) for second 10 terms") {
+        math::sequences::Natural nat;
+        nat.next(10);       // Ignore first 10 terms
+        CHECK(second_10_terms == nat.next(10));
+    }
 }
 
 TEST_CASE("Test class math::sequences::Fibonacci") {
-    SUBCASE("Test first 10 terms") {
+    std::vector<math::numbers::natural> first_10_terms{0, 1, 1, 2, 3, 5, 8, 13, 21, 34};
+    std::vector<math::numbers::natural> second_10_terms{55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181};
+
+    SUBCASE("Test next() for first 10 terms") {
         math::sequences::Fibonacci fib;
-        std::vector<math::numbers::natural> first_10_terms{0, 1, 1, 2, 3, 5, 8, 13, 21, 34};
         for (auto& term : first_10_terms) {
             CHECK(term == fib.next());
         }
+    }
+
+    SUBCASE("Test next(10) and next() for first 11 terms") {
+        math::sequences::Fibonacci fib;
+        CHECK(first_10_terms == fib.next(10));
+
+        CHECK(55 == fib.next());
+    }
+
+    SUBCASE("Test next(10) and next(10) for second 10 terms") {
+        math::sequences::Fibonacci fib;
+        fib.next(10);       // Ignore first 10 terms
+        CHECK(second_10_terms == fib.next(10));
     }
 }

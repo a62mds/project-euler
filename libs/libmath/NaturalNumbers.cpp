@@ -76,6 +76,17 @@ numbers::natural operations::square(numbers::natural number) {
     return exponentiate(number, 2);
 }
 
+std::vector<numbers::natural> sequences::Sequence::next(size_t how_many) {
+    std::vector<numbers::natural> terms;
+    terms.reserve(how_many);
+
+    for (size_t index=0; index < how_many; index++) {
+        terms.push_back(next());
+    }
+
+    return terms;
+}
+
 numbers::natural sequences::Natural::next() {
     return _next_value++;
 }
