@@ -53,7 +53,7 @@ namespace sequences {
         public:
             Natural() : _next_value(0ull) {}
 
-            numbers::natural next() { return _next_value++; }
+            numbers::natural next();
         private:
             numbers::natural _next_value;
     };

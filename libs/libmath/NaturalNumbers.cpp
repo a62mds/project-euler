@@ -76,6 +76,10 @@ numbers::natural operations::square(numbers::natural number) {
     return exponentiate(number, 2);
 }
 
+numbers::natural sequences::Natural::next() {
+    return _next_value++;
+}
+
 numbers::natural sequences::Fibonacci::next() {
     numbers::natural current_value = _current_value;
     _current_value = _next_value;
