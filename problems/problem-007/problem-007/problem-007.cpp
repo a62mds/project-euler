@@ -1,12 +1,18 @@
 // problem-007.cpp
-#include<iostream>
-#include<string>
-#include<vector>
-#include"Primes.h"
+#include <iostream>
+
+#include <libmath/PrimeNumbers.h>
+
+
+const size_t INDEX = 10001;
+
 
 int main() {
-	Primes obj_primes("primes");
-	std::cout << obj_primes[10001] << std::endl;
+	math::sequences::Primes prime_numbers;
 
-    return 0;
+	math::numbers::natural the_prime = prime_numbers[INDEX];
+
+	std::cout << "The " << INDEX << "th prime number is " << the_prime << std::endl;
+
+	return 0;
 }
