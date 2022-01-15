@@ -16,7 +16,7 @@ namespace math {
 //=============================================================================
 //
 // Constructors
-Primes::Primes(std::string filename/*="primes"*/, size_t maxnum/*=2000*/) : m_filename{filename}, m_numPrimes{maxnum} {
+sequences::Primes::Primes(std::string filename/*="primes"*/, size_t maxnum/*=2000*/) : m_filename{filename}, m_numPrimes{maxnum} {
 	try {
 		m_primes = read_file(m_filename);
 	} catch(std::ios_base::failure) {
@@ -28,7 +28,7 @@ Primes::Primes(std::string filename/*="primes"*/, size_t maxnum/*=2000*/) : m_fi
 //=============================================================================
 //
 // Subscript operator
-numbers::natural Primes::operator[](int index) {
+numbers::natural sequences::Primes::operator[](int index) {
 	// Sanity check
 	if (!in_index_range(index))
 		throw std::invalid_argument("Index must be within range [1,1999]");
@@ -42,7 +42,7 @@ numbers::natural Primes::operator[](int index) {
 //
 // Reads a list of prime numbers from a file whose name is specified
 // as input and outputs a std::vector<int> containing the primes
-std::vector<numbers::natural> Primes::read_file(std::string filename) {
+std::vector<numbers::natural> sequences::Primes::read_file(std::string filename) {
 	std::vector<numbers::natural> output;			// vector for storing prime numbers
 	std::ifstream ifs(filename);	// create ifstream from prime number file
 	if (!ifs) throw std::ios_base::failure("Could not open " + filename);
@@ -59,7 +59,7 @@ std::vector<numbers::natural> Primes::read_file(std::string filename) {
 //=============================================================================
 //
 // Generates a file containing the first max prime numbers
-void Primes::gen_file(std::string filename, size_t max) {
+void sequences::Primes::gen_file(std::string filename, size_t max) {
 	bool is_prime = true;
 	int num{3};
 	std::ofstream output(filename);
@@ -82,7 +82,7 @@ void Primes::gen_file(std::string filename, size_t max) {
 //
 // Checks the whether input is prime by comparing it against the primes stored
 // in the member variable std::vector<int> m_primes
-bool Primes::is_prime(numbers::natural input) {
+bool sequences::Primes::is_prime(numbers::natural input) {
 	// Sanity check (currently only works for integers up to the max indicated)
 	if (!in_prime_range(input))
 		throw std::invalid_argument("Input must be within range [2, " + std::to_string(m_primes.back()) + "]");
@@ -97,7 +97,7 @@ bool Primes::is_prime(numbers::natural input) {
 //=============================================================================
 //
 // Find the smallest prime divisor of an integer
-numbers::natural Primes::get_smallest_prime_divisor(numbers::natural input) {
+numbers::natural sequences::Primes::get_smallest_prime_divisor(numbers::natural input) {
 	for (auto& prime_number : m_primes) {
 		if (is_divisible_by(input, prime_number)) {
 			return prime_number;
@@ -110,7 +110,7 @@ numbers::natural Primes::get_smallest_prime_divisor(numbers::natural input) {
 //=============================================================================
 //
 // Returns a vector containing the prime factors (with repetition) of the input, sorted in ascending order
-std::vector<numbers::natural> Primes::get_prime_factors(numbers::natural input) {
+std::vector<numbers::natural> sequences::Primes::get_prime_factors(numbers::natural input) {
 	std::vector<numbers::natural> output;
 	numbers::natural quotient{input};
 	while (quotient != 1) {
@@ -135,7 +135,7 @@ std::vector<numbers::natural> Primes::get_prime_factors(numbers::natural input) 
 //
 // Returns a vector containing the values of the exponents of each prime, in
 // ascending order, of the prime number decomposition of the input
-std::vector<size_t> Primes::get_exponent_vector(numbers::natural input) {
+std::vector<size_t> sequences::Primes::get_exponent_vector(numbers::natural input) {
 	std::vector<size_t> output;
 	std::vector<numbers::natural> prime_factors{get_prime_factors(input)};
 	size_t count{0};						// holds multiplicity of each prime in prime_factors
@@ -164,7 +164,7 @@ std::vector<size_t> Primes::get_exponent_vector(numbers::natural input) {
 //
 // Returns smallest positive integer that is divisible by each of the
 // numbers input, input-1, input-2, ..., 3, 2
-numbers::natural Primes::get_smallest_multiple(int input) {
+numbers::natural sequences::Primes::get_smallest_multiple(int input) {
 	std::vector<size_t> master_exponent_vector{get_exponent_vector(input)};
 	std::vector<size_t> inner_exponent_vector;
 	for (int number=input-1; number >= 2; number--) {
@@ -190,7 +190,7 @@ numbers::natural Primes::get_smallest_multiple(int input) {
 //=============================================================================
 //
 // Returns the sum of the prime numbers less than the specified maximum
-numbers::natural Primes::get_sum_to(int max) {
+numbers::natural sequences::Primes::get_sum_to(int max) {
 	numbers::natural sum{0};
 	for (std::vector<numbers::natural>::iterator it=m_primes.begin(); it!=m_primes.end() && *it<max; ++it) {
 		sum += *it;
@@ -201,7 +201,7 @@ numbers::natural Primes::get_sum_to(int max) {
 //=============================================================================
 //
 // Returns the arithmetic derivative of the input
-numbers::natural Primes::arith_deriv(numbers::natural input) {
+numbers::natural sequences::Primes::arith_deriv(numbers::natural input) {
 	if (is_prime(input)) { 
 		return 1;
 	}
