@@ -42,6 +42,7 @@ numbers::natural get_largest_n_digit_number(size_t num_digits);
 
 namespace operations {
     numbers::natural exponentiate(numbers::natural base, size_t exponent);
+    std::vector<numbers::natural> exponentiate(const std::vector<numbers::natural>& bases, size_t exponent);
     numbers::natural square(numbers::natural number);
 }; // namesapce operations
 

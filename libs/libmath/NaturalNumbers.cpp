@@ -1,5 +1,7 @@
 #include "NaturalNumbers.h"
 
+#include <algorithm>
+
 
 namespace math {
 
@@ -70,6 +72,20 @@ numbers::natural operations::exponentiate(numbers::natural base, size_t exponent
         result *= base;
     }
     return result;
+}
+
+std::vector<numbers::natural> operations::exponentiate(const std::vector<numbers::natural>& bases, size_t exponent) {
+    std::vector<numbers::natural> results;
+    results.resize(bases.size());
+
+    std::transform(
+        bases.begin(),
+        bases.end(),
+        results.begin(),
+        [&exponent](const numbers::natural& base) { return exponentiate(base, exponent); }
+    );
+
+    return results;
 }
 
 numbers::natural operations::square(numbers::natural number) {

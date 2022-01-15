@@ -65,7 +65,7 @@ TEST_CASE("Test function math::get_largest_n_digit_number") {
     CHECK(math::get_largest_n_digit_number(15) == 999999999999999);
 }
 
-TEST_CASE("Test function math::operations::exponentiate") {
+TEST_CASE("Test scalar function math::operations::exponentiate") {
     SUBCASE("Test powers of 0") {
         CHECK(math::operations::exponentiate(0, 0) == 1);
         CHECK(math::operations::exponentiate(0, 1) == 0);
@@ -92,6 +92,35 @@ TEST_CASE("Test function math::operations::exponentiate") {
         CHECK(math::operations::exponentiate(10, 1) == 10);
         CHECK(math::operations::exponentiate(10, 2) == 100);
         CHECK(math::operations::exponentiate(10, 15) == 1000000000000000);
+    }
+}
+
+TEST_CASE("Test vector function math::operations::exponentiate") {
+    SUBCASE("Test 0 exponent") {
+        std::vector<math::numbers::natural> input{0, 1, 5, 19, 56, 675, 98743, 238092438, 2653765243756, 762347862348726};
+        std::vector<math::numbers::natural> expected_output{1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+
+        std::vector<math::numbers::natural> output = math::operations::exponentiate(input, 0);
+
+        CHECK(output == expected_output);
+    }
+
+    SUBCASE("Test 1 exponent") {
+        std::vector<math::numbers::natural> input{0, 1, 5, 19, 56, 675, 98743, 238092438, 2653765243756, 762347862348726};
+        std::vector<math::numbers::natural>& expected_output = input;
+
+        std::vector<math::numbers::natural> output = math::operations::exponentiate(input, 1);
+
+        CHECK(output == expected_output);
+    }
+
+    SUBCASE("Test 2 exponent") {
+        std::vector<math::numbers::natural> input{0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        std::vector<math::numbers::natural> expected_output{0, 1, 4, 9, 16, 25, 36, 49, 64, 81};
+
+        std::vector<math::numbers::natural> output = math::operations::exponentiate(input, 2);
+
+        CHECK(output == expected_output);
     }
 }
 
