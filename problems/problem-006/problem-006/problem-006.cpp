@@ -1,26 +1,31 @@
 // problem-006.cpp
-#include<iostream>
+#include <numeric>
+#include <iostream>
 
-long long int sum_to(int max) {
-	int sum{0};
-	for (int ii=1; ii<=max; ii++) sum+=ii;
-	return sum;
-}
+#include <libmath/NaturalNumbers.h>
 
-long long int square(int num) { return num*num; }
 
-long long sum_squares_to(int max) {
-	int sqsum{0};
-	for (int ii=1; ii<=max; ii++) sqsum+=square(ii);
-	return sqsum;
-}
+// Use 101 instead of 100 because the convention used in the math library is to include 0, whereas the convention in
+// the problem does not include 0
+const math::numbers::natural HOW_MANY = 101ull;
+
 
 int main() {
-	int max{100};
-	std::cout << sum_to(max) << std::endl;
-	std::cout << square(sum_to(max)) << std::endl;
-	std::cout << sum_squares_to(max) << std::endl;
-	std::cout << square(sum_to(max)) - sum_squares_to(max) << std::endl;
+	math::sequences::Natural natural_numbers;
 
-    return 0;
+	std::vector<math::numbers::natural> numbers = natural_numbers.next(HOW_MANY);
+
+	math::numbers::natural sum_of_numbers = std::accumulate(numbers.begin(), numbers.end(), 0ull);
+	math::numbers::natural square_of_sum = math::operations::square(sum_of_numbers);
+
+	std::vector<math::numbers::natural> squares = math::operations::square(numbers);
+	math::numbers::natural sum_of_squares = std::accumulate(squares.begin(), squares.end(), 0ull);
+
+	math::numbers::natural difference = square_of_sum - sum_of_squares;
+
+	std::cout << "Square of sum of first  " << HOW_MANY - 1 << " natural numbers: " << square_of_sum << std::endl;
+	std::cout << "Sum of squares of first " << HOW_MANY - 1 << " natural numbers: " << sum_of_squares << std::endl;
+	std::cout << "Difference: " << difference << std::endl;
+
+	return 0;
 }
