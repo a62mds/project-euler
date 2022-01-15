@@ -92,6 +92,10 @@ numbers::natural operations::square(numbers::natural number) {
     return exponentiate(number, 2);
 }
 
+std::vector<numbers::natural> operations::square(const std::vector<numbers::natural>& numbers) {
+    return exponentiate(numbers, 2);
+}
+
 std::vector<numbers::natural> sequences::Sequence::next(size_t how_many) {
     std::vector<numbers::natural> terms;
     terms.reserve(how_many);
