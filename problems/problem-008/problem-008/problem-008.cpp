@@ -1,37 +1,18 @@
 // problem-008.cpp
-#include<algorithm>
-#include<iostream>
-#include<fstream>
-#include<sstream>
-#include<string>
+#include <algorithm>
+#include <iostream>
 
-bool is_all_digits(std::string& line) {
-	return std::all_of(line.begin(), line.end(), ::iswdigit);
-}
+#include <libfileio/FileProcessor.h>
+
 
 inline int ctoi(char c) { return c - '0'; }
 
-std::string read_file(std::string filename) {
-	// read file
-	std::ifstream ifs(filename);
-	std::string line;
-	std::string numbers;
-	std::cout << numbers << std::endl;
-	while (std::getline(ifs,line)) {
-		// If line consists exclusively of digits, append it to the string of numbers
-		if (is_all_digits(line)) numbers+=line;
-	}
-	return numbers;
-}
-
-long long int find_prod(std::string& digits) {
+long long int find_prod(const std::string& digits) {
 	long long int product{1};
 	int digit{0};
-	for (std::string::iterator iit=digits.begin(); iit!=digits.end(); ++iit) {
-		//std::cout << *it << std::endl;
+	for (std::string::const_iterator iit=digits.begin(); iit!=digits.end(); ++iit) {
 		digit = ctoi(*iit);
 		if (digit==0) { return 0; } else { product *= digit; }
-		//std::cout << product << std::endl;
 	}
 	return product;
 }
@@ -44,18 +25,63 @@ long long int find_largest_product(std::string& numbers, int num_adj) {
 		std::string substr;
 		for (int count=0; count<=offset; count++) {
 			substr+=*(it+count);
-			//std::cout << substr << std::endl;
 		}
 		currprod = find_prod(substr);
-		std::cout << substr << " : " <<  currprod << std::endl;
 		if (currprod > maxprod)  maxprod = currprod;
 	}
 	return maxprod;
 }
 
-int main() {
-	std::string numbers = read_file("problem-008.txt");
-	std::cout << find_largest_product(numbers, 13) << std::endl;
 
-    return 0;
+/** 
+ * Strip HTML tags from a string
+ * 
+ * Adapted from:
+ * https://stackoverflow.com/questions/49333136/removing-html-tags-from-a-string-of-text#49333561
+ */
+std::string strip_html_tags(const std::string& input) {
+
+	std::string output = input;
+	while (output.find("<") != std::string::npos)
+	{
+		auto startpos = output.find("<");
+		auto endpos = output.find(">") + 1;
+
+		if (endpos != std::string::npos)
+		{
+			output.erase(startpos, endpos - startpos);
+		}
+	}
+
+	return output;
+}
+
+/** 
+ * Filter out non-numeric strings
+ * 
+ * Function with the narrowly scoped purpose of reading lines of HTML, removing the tags, and, if what remains consists
+ * of only digits, return that string. Otherwise, return the empty string.
+ */
+std::string filter_numeric_line(const std::string& line) {
+
+	std::string output = strip_html_tags(line);
+
+	return std::all_of(output.begin(), output.end(), iswdigit) ? output : "";
+}
+
+
+int main() {
+
+	std::function<std::string(const std::string&)> line_processor = filter_numeric_line;
+	std::vector<std::string> numeric_rows;
+	if (!fileio::process_file("problem-008.html", numeric_rows, line_processor)) {
+		std::cerr << "Failed to process file " << "problem-008.html" << std::endl;
+	}
+
+	std::string digits;
+	std::for_each(numeric_rows.begin(), numeric_rows.end(), [&](const std::string& numeric_row){ digits += numeric_row; });
+
+	std::cout << find_largest_product(digits, 13) << std::endl;
+
+	return 0;
 }

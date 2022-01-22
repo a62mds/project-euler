@@ -13,9 +13,14 @@ set(SOURCES
 )
 add_executable(test-solution-to-problem-008 ${SOURCES})
 
-# copy the file containing the 1000 digit number to the executable directory
+# add the libraries
+set(LIB_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../../libs/")
+target_include_directories(test-solution-to-problem-008 PRIVATE "${LIB_ROOT}")
+
+# copy the problem statement to the test directory
 add_custom_command(
     TARGET test-solution-to-problem-008
     POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_SOURCE_DIR}/problem-008.txt" "${CMAKE_BINARY_DIR}/$<CONFIG>/"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_SOURCE_DIR}/problem-008.html" "${CMAKE_BINARY_DIR}/$<CONFIG>/"
 )
+
