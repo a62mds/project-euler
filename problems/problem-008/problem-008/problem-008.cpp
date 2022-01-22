@@ -1,37 +1,28 @@
 // problem-008.cpp
 #include <algorithm>
 #include <iostream>
+#include <numeric>
 
 #include <libfileio/FileProcessor.h>
+#include <libmath/NaturalNumbers.h>
 
 
-inline int ctoi(char c) { return c - '0'; }
+/** 
+ * Compute the product of the digits in the string (which is assumed to consist entirely of digits)
+ */
+math::numbers::natural compute_product_of_digits(const std::string& digit_str) {
 
-long long int find_prod(const std::string& digits) {
-	long long int product{1};
-	int digit{0};
-	for (std::string::const_iterator iit=digits.begin(); iit!=digits.end(); ++iit) {
-		digit = ctoi(*iit);
-		if (digit==0) { return 0; } else { product *= digit; }
+	std::vector<math::numbers::natural> digits;
+	digits.resize(digit_str.size());
+	std::transform(digit_str.begin(), digit_str.end(), digits.begin(), [](const char& c){ return c - '0'; });
+
+	math::numbers::natural product = 0ull;
+	if (!std::any_of(digits.begin(), digits.end(), [](math::numbers::natural d){ return d == 0; })) {
+		product = std::accumulate(digits.begin(), digits.end(), 1ull, std::multiplies<math::numbers::natural>());
 	}
+
 	return product;
 }
-
-long long int find_largest_product(std::string& numbers, int num_adj) {
-	int offset{num_adj-1};
-	long long int maxprod{1};
-	long long int currprod{1};
-	for (std::string::iterator it=numbers.begin(); it!=(numbers.end()-offset); ++it) {
-		std::string substr;
-		for (int count=0; count<=offset; count++) {
-			substr+=*(it+count);
-		}
-		currprod = find_prod(substr);
-		if (currprod > maxprod)  maxprod = currprod;
-	}
-	return maxprod;
-}
-
 
 /** 
  * Strip HTML tags from a string
@@ -81,7 +72,21 @@ int main() {
 	std::string digits;
 	std::for_each(numeric_rows.begin(), numeric_rows.end(), [&](const std::string& numeric_row){ digits += numeric_row; });
 
-	std::cout << find_largest_product(digits, 13) << std::endl;
+	std::vector<std::string> adjacent_digit_subsets;
+	size_t start_position = 0;
+	while (start_position <= digits.size() - 13) {
+		adjacent_digit_subsets.push_back(digits.substr(start_position++, 13));
+	}
+	std::cout << adjacent_digit_subsets.front() << std::endl;
+	std::cout << adjacent_digit_subsets.back() << std::endl;
+
+	std::vector<math::numbers::natural> products;
+	products.resize(adjacent_digit_subsets.size());
+	std::transform(adjacent_digit_subsets.begin(), adjacent_digit_subsets.end(), products.begin(), compute_product_of_digits);
+
+	math::numbers::natural largest_product = *std::max_element(products.begin(), products.end());
+
+	std::cout << largest_product << std::endl;
 
 	return 0;
 }
