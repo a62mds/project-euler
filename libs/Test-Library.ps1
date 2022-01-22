@@ -32,7 +32,7 @@ Try {
     cmake -DENABLE_TESTS=ON ..
     cmake --build .
     Set-Location Debug
-    .\test-libmath.exe
+    & ".\test-$LIBRARY_NAME.exe"
 } Catch {
     Write-Error $Error[0]
     $RETURN_CODE = 1
