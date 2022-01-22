@@ -7,6 +7,10 @@
 #include <libmath/NaturalNumbers.h>
 
 
+const std::string PROBLEM_STATEMENT_FILENAME = "problem-008.html";
+const size_t NUMBER_OF_DIGITS_IN_PRODUCT = 13;
+
+
 /** 
  * Compute the product of the digits in the string (which is assumed to consist entirely of digits)
  */
@@ -65,20 +69,17 @@ int main() {
 
 	std::function<std::string(const std::string&)> line_processor = filter_numeric_line;
 	std::vector<std::string> numeric_rows;
-	if (!fileio::process_file("problem-008.html", numeric_rows, line_processor)) {
-		std::cerr << "Failed to process file " << "problem-008.html" << std::endl;
+	if (!fileio::process_file(PROBLEM_STATEMENT_FILENAME, numeric_rows, line_processor)) {
+		std::cerr << "Failed to process file " << PROBLEM_STATEMENT_FILENAME << std::endl;
 	}
 
 	std::string digits;
 	std::for_each(numeric_rows.begin(), numeric_rows.end(), [&](const std::string& numeric_row){ digits += numeric_row; });
 
 	std::vector<std::string> adjacent_digit_subsets;
-	size_t start_position = 0;
-	while (start_position <= digits.size() - 13) {
-		adjacent_digit_subsets.push_back(digits.substr(start_position++, 13));
+	for (size_t start_position=0; start_position <= digits.size() - NUMBER_OF_DIGITS_IN_PRODUCT; start_position++) {
+		adjacent_digit_subsets.push_back(digits.substr(start_position, NUMBER_OF_DIGITS_IN_PRODUCT));
 	}
-	std::cout << adjacent_digit_subsets.front() << std::endl;
-	std::cout << adjacent_digit_subsets.back() << std::endl;
 
 	std::vector<math::numbers::natural> products;
 	products.resize(adjacent_digit_subsets.size());
