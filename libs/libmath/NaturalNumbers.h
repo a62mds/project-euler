@@ -1,6 +1,7 @@
 #ifndef NATURAL_NUMBERS_H
 #define NATURAL_NUMBERS_H
 
+#include <tuple>
 #include <vector>
 
 
@@ -19,6 +20,11 @@ bool is_divisible_by(numbers::natural numerator, numbers::natural denominator);
  * Check if the number is a palendromic number
  */
 bool is_palindrome(numbers::natural number);
+
+/**
+ * Check if the numbers are a pythagorean triple
+ */
+bool is_pythagorean_triple(numbers::natural a, numbers::natural b, numbers::natural c);
 
 /**
  * Compute the GCD of the inputs

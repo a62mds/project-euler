@@ -53,6 +53,25 @@ TEST_CASE("Test function math::is_palindrome") {
     }
 }
 
+TEST_CASE("Test function math::is_pythagorean_triple") {
+    SUBCASE("Test Pythagorean triples are properly detected") {
+        CHECK(math::is_pythagorean_triple(3, 4, 5));
+        CHECK(math::is_pythagorean_triple(5, 12, 13));
+        CHECK(math::is_pythagorean_triple(7, 24, 25));
+        CHECK(math::is_pythagorean_triple(33, 56, 65));
+        CHECK(math::is_pythagorean_triple(105, 208, 233));
+        CHECK(math::is_pythagorean_triple(120, 209, 241));
+    }
+
+    SUBCASE("Test non-Pythagorean triples are properly rejected") {
+        CHECK(!math::is_pythagorean_triple(1, 2, 3));
+        CHECK(!math::is_pythagorean_triple(1, 1, 1));
+        CHECK(!math::is_pythagorean_triple(6, 12, 13));
+        CHECK(!math::is_pythagorean_triple(60, 222, 229));
+        CHECK(!math::is_pythagorean_triple(120, 209, 240));
+    }
+}
+
 TEST_CASE("Test function math::get_smallest_n_digit_number") {
     CHECK(math::get_smallest_n_digit_number(1) == 0);
     CHECK(math::get_smallest_n_digit_number(2) == 10);

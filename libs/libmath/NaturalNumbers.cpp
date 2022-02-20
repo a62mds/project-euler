@@ -19,6 +19,10 @@ bool is_palindrome(numbers::natural number) {
     return reversed_number == original_number;
 }
 
+bool is_pythagorean_triple(numbers::natural a, numbers::natural b, numbers::natural c) {
+    return operations::square(c) == operations::square(a) + operations::square(b);
+}
+
 numbers::natural get_gcd(numbers::natural lhs, numbers::natural rhs) {
     numbers::natural min{lhs <= rhs ? lhs : rhs};
     for (numbers::natural denom=min; denom >= 1; denom--) {
