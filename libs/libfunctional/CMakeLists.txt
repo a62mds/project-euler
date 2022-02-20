@@ -15,6 +15,7 @@ add_library(libfunctional INTERFACE)
 if(${ENABLE_TESTS})
     set(TEST_SOURCES
         Functional.test.cpp
+        Filter.test.cpp
     )
     add_executable(test-libfunctional "${TEST_SOURCES}")
     target_include_directories(test-libfunctional PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../external/doctest/doctest/")
