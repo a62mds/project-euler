@@ -1,7 +1,5 @@
 // problem-009.cpp
-#include <algorithm>
 #include <cmath>
-#include <functional>
 #include <iostream>
 #include <sstream>
 #include <tuple>
