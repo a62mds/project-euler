@@ -1,12 +1,15 @@
 // problem-010.cpp
-#include<iostream>
-#include<string>
-#include<vector>
-#include"Primes.h"
+#include <iostream>
+
+#include <libmath/PrimeNumbers.h>
+
+
+int UPPER_BOUND = 2000000;
+
 
 int main() {
-	Primes obj_primes("primes");
-	std::cout << obj_primes.get_sum_to(2000000) << std::endl;
 
-    return 0;
+	std::cout << math::sequences::Primes().get_sum_to(UPPER_BOUND) << std::endl;
+
+	return 0;
 }

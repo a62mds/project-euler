@@ -9,14 +9,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add the executable
 set(SOURCES
-    problem-010/Primes.cpp
     problem-010/problem-010.cpp
 )
 add_executable(test-solution-to-problem-010 ${SOURCES})
 
-# copy the file with prime numbers to the executable directory
-add_custom_command(
-    TARGET test-solution-to-problem-010
-    POST_BUILD
-    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_SOURCE_DIR}/problem-010/primes" "${CMAKE_BINARY_DIR}/$<CONFIG>/"
+# add the libraries
+set(LIB_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../../libs/")
+set(LIBS
+    libmath
 )
+foreach(LIB "${LIBS}")
+    set(LIB_PATHS "${LIB_PATHS}" "${LIB_ROOT}/${LIB}/.build/Debug/${LIB}.lib")
+endforeach()
+target_include_directories(test-solution-to-problem-010 PRIVATE "${LIB_ROOT}")
+target_link_libraries(test-solution-to-problem-010 PRIVATE "${LIB_PATHS}")
