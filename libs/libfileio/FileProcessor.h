@@ -29,6 +29,7 @@ bool process_file(const std::string& filename, std::vector<T>& output, std::func
     bool success = true;
     std::string line;
     while (std::getline(input, line)) {
+        line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
         output.push_back(line_processor(line));
     }
 
