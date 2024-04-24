@@ -4,6 +4,7 @@
 #include <numeric>
 
 #include <libfileio/FileProcessor.h>
+#include <libhtml/Html.h>
 #include <libmath/NaturalNumbers.h>
 
 
@@ -29,29 +30,6 @@ math::numbers::natural compute_product_of_digits(const std::string& digit_str) {
 }
 
 /** 
- * Strip HTML tags from a string
- * 
- * Adapted from:
- * https://stackoverflow.com/questions/49333136/removing-html-tags-from-a-string-of-text#49333561
- */
-std::string strip_html_tags(const std::string& input) {
-
-	std::string output = input;
-	while (output.find("<") != std::string::npos)
-	{
-		auto startpos = output.find("<");
-		auto endpos = output.find(">") + 1;
-
-		if (endpos != std::string::npos)
-		{
-			output.erase(startpos, endpos - startpos);
-		}
-	}
-
-	return output;
-}
-
-/** 
  * Filter out non-numeric strings
  * 
  * Function with the narrowly scoped purpose of reading lines of HTML, removing the tags, and, if what remains consists
@@ -59,7 +37,7 @@ std::string strip_html_tags(const std::string& input) {
  */
 std::string filter_numeric_line(const std::string& line) {
 
-	std::string output = strip_html_tags(line);
+	std::string output = html::strip_tags(line);
 
 	return std::all_of(output.begin(), output.end(), iswdigit) ? output : "";
 }
