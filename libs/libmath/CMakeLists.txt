@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set the project name and version
-project(Math VERSION 1.0)
+project(Math VERSION 1.1)
 
 option(ENABLE_TESTS "Enable tests" OFF)
 
@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # add the library
 set(HEADERS
+    Matrix.h
     NaturalNumbers.h
     PrimeNumbers.h
 )
@@ -23,6 +24,7 @@ add_library(libmath "${SOURCES}" "${HEADERS}")
 if(${ENABLE_TESTS})
     set(TEST_SOURCES
         Math.test.cpp
+        Matrix.test.cpp
         NaturalNumbers.test.cpp
         PrimeNumbers.test.cpp
     )

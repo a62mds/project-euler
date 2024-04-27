@@ -13,3 +13,7 @@ Tools for computing and working with prime numbers.
 ### NaturalNumbers
 
 Tools for working with natural numbers.
+
+### Matrix
+
+Tools for working with matrices.
