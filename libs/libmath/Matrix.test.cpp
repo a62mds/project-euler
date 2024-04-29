@@ -4,7 +4,7 @@
 
 
 TEST_CASE("Test method math::matrices::Matrix::get") {
-    math::matrices::Matrix<int, 1ul, 1ul> m(0);
+    math::matrices::Matrix<int> m(1ul, 1ul, 0);
 
     SUBCASE("Test element can be retrieved when row and col in range") {
         CHECK_EQ(m.get(0, 0), 0);
@@ -32,7 +32,7 @@ TEST_CASE("Test method math::matrices::Matrix::get") {
 }
 
 TEST_CASE("Test method math::matrices::Matrix::set") {
-    math::matrices::Matrix<int, 3ul, 3ul> m(0);
+    math::matrices::Matrix<int> m(3ul, 3ul, 0);
 
     for (size_t row=0; row < 3; row++) {
         for (size_t col=0; col < 3; col++) {
@@ -80,14 +80,14 @@ TEST_CASE("Test method math::matrices::Matrix::set") {
 }
 
 TEST_CASE("Test math::matrices::Matrix::shape method") {
-    math::matrices::Matrix<double, 3, 4> m(0);
+    math::matrices::Matrix<double> m(3ul, 4ul, 0);
 
     CHECK_EQ(m.shape().first, 3);
     CHECK_EQ(m.shape().second, 4);
 }
 
 TEST_CASE("Test math::matrices::Matrix::submatrix method") {
-    math::matrices::Matrix<double, 10, 10> m(0.0);
+    math::matrices::Matrix<double> m(10ul, 10ul, 0.0);
 
     double value = 1.0;
     for (size_t row=0; row < 10; ++row) {
@@ -98,7 +98,7 @@ TEST_CASE("Test math::matrices::Matrix::submatrix method") {
     }
 
     SUBCASE("Test get element in first row and first column as 1 x 1 matrix") {
-        math::matrices::Matrix<double, 1, 1> sm = m.submatrix<1, 1>(0, 0);
+        math::matrices::Matrix<double> sm = m.submatrix(0ul, 0ul, 1ul, 1ul);
 
         CHECK_EQ(sm.shape().first, 1);
         CHECK_EQ(sm.shape().second, 1);
@@ -106,7 +106,7 @@ TEST_CASE("Test math::matrices::Matrix::submatrix method") {
     }
 
     SUBCASE("Test get element in middle of matrix as 1 x 1 matrix") {
-        math::matrices::Matrix<double, 1, 1> sm = m.submatrix<1, 1>(4, 4);
+        math::matrices::Matrix<double> sm = m.submatrix(4ul, 4ul, 1ul, 1ul);
 
         CHECK_EQ(sm.shape().first, 1);
         CHECK_EQ(sm.shape().second, 1);
@@ -114,7 +114,7 @@ TEST_CASE("Test math::matrices::Matrix::submatrix method") {
     }
 
     SUBCASE("Test get element in last row and last column as 1 x 1 matrix") {
-        math::matrices::Matrix<double, 1, 1> sm = m.submatrix<1, 1>(9, 9);
+        math::matrices::Matrix<double> sm = m.submatrix(9ul, 9ul, 1ul, 1ul);
 
         CHECK_EQ(sm.shape().first, 1);
         CHECK_EQ(sm.shape().second, 1);
@@ -122,7 +122,7 @@ TEST_CASE("Test math::matrices::Matrix::submatrix method") {
     }
 
     SUBCASE("Test get 2 x 2 submatrix from top left corner") {
-        math::matrices::Matrix<double, 2, 2> sm = m.submatrix<2, 2>(0, 0);
+        math::matrices::Matrix<double> sm = m.submatrix(0ul, 0ul, 2ul, 2ul);
 
         CHECK_EQ(sm.shape().first, 2);
         CHECK_EQ(sm.shape().second, 2);
@@ -133,7 +133,7 @@ TEST_CASE("Test math::matrices::Matrix::submatrix method") {
     }
 
     SUBCASE("Test get 3 x 3 submatrix from bottom right corner") {
-        math::matrices::Matrix<double, 3, 3> sm = m.submatrix<3, 3>(7, 7);
+        math::matrices::Matrix<double> sm = m.submatrix(7ul, 7ul, 3ul, 3ul);
 
         CHECK_EQ(sm.shape().first, 3);
         CHECK_EQ(sm.shape().second, 3);
@@ -150,7 +150,7 @@ TEST_CASE("Test math::matrices::Matrix::submatrix method") {
 }
 
 TEST_CASE("Test math::matrices::Matrix::collapse_rows method") {
-    math::matrices::Matrix<int, 3, 3> m(0);
+    math::matrices::Matrix<int> m(3ul, 3ul, 0);
     m.set(0, 0, 1);
     m.set(0, 1, 2);
     m.set(0, 2, 3);
@@ -187,7 +187,7 @@ TEST_CASE("Test math::matrices::Matrix::collapse_rows method") {
 }
 
 TEST_CASE("Test math::matrices::Matrix::collapse_columns method") {
-    math::matrices::Matrix<int, 3, 3> m(0);
+    math::matrices::Matrix<int> m(3ul, 3ul, 0);
     m.set(0, 0, 1);
     m.set(0, 1, 2);
     m.set(0, 2, 3);
@@ -224,7 +224,7 @@ TEST_CASE("Test math::matrices::Matrix::collapse_columns method") {
 }
 
 TEST_CASE("Test math::matrices::Matrix::collapse_primary_diagonal method") {
-    math::matrices::Matrix<int, 2, 3> m1(0);
+    math::matrices::Matrix<int> m1(2ul, 3ul, 0);
     m1.set(0, 0, 1);
     m1.set(0, 1, 2);
     m1.set(0, 2, 3);
@@ -232,7 +232,7 @@ TEST_CASE("Test math::matrices::Matrix::collapse_primary_diagonal method") {
     m1.set(1, 1, 5);
     m1.set(1, 2, 6);
 
-    math::matrices::Matrix<int, 3, 2> m2(0);
+    math::matrices::Matrix<int> m2(3ul, 2ul, 0);
     m2.set(0, 0, 1);
     m2.set(0, 1, 2);
     m2.set(1, 0, 3);
@@ -240,7 +240,7 @@ TEST_CASE("Test math::matrices::Matrix::collapse_primary_diagonal method") {
     m2.set(2, 0, 5);
     m2.set(2, 1, 6);
 
-    math::matrices::Matrix<int, 3, 3> m3(0);
+    math::matrices::Matrix<int> m3(3ul, 3ul, 0);
     m3.set(0, 0, 1);
     m3.set(0, 1, 2);
     m3.set(0, 2, 3);
@@ -301,7 +301,7 @@ TEST_CASE("Test math::matrices::Matrix::collapse_primary_diagonal method") {
 }
 
 TEST_CASE("Test math::matrices::Matrix::collapse_secondary_diagonal method") {
-    math::matrices::Matrix<int, 2, 3> m1(0);
+    math::matrices::Matrix<int> m1(2ul, 3ul, 0);
     m1.set(0, 0, 1);
     m1.set(0, 1, 2);
     m1.set(0, 2, 3);
@@ -309,7 +309,7 @@ TEST_CASE("Test math::matrices::Matrix::collapse_secondary_diagonal method") {
     m1.set(1, 1, 5);
     m1.set(1, 2, 6);
 
-    math::matrices::Matrix<int, 3, 2> m2(0);
+    math::matrices::Matrix<int> m2(3ul, 2ul, 0);
     m2.set(0, 0, 1);
     m2.set(0, 1, 2);
     m2.set(1, 0, 3);
@@ -317,7 +317,7 @@ TEST_CASE("Test math::matrices::Matrix::collapse_secondary_diagonal method") {
     m2.set(2, 0, 5);
     m2.set(2, 1, 6);
 
-    math::matrices::Matrix<int, 3, 3> m3(0);
+    math::matrices::Matrix<int> m3(3ul, 3ul, 0);
     m3.set(0, 0, 1);
     m3.set(0, 1, 2);
     m3.set(0, 2, 3);
