@@ -21,6 +21,18 @@ std::vector<std::string> split(const std::string& str, char delimiter) {
     return tokens;
 }
 
+std::string join(const std::vector<std::string>& tokens, char delimiter) {
+    std::ostringstream oss;
+    auto it = tokens.begin();
+    if (it != tokens.end()) {
+        oss << *it++;
+        for (; it != tokens.end(); ++it) {
+            oss << delimiter << *it;
+        }
+    }
+    return oss.str();
+}
+
 bool is_numeric(const std::string& str) {
     if (str.empty()) {
         return false;

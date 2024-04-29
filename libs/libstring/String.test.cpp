@@ -57,6 +57,49 @@ TEST_CASE("Test function string::split") {
     }
 }
 
+TEST_CASE("Test string::join function") {
+
+    SUBCASE("Empty vector returns empty string") {
+        std::vector<std::string> tokens;
+
+        std::string expected = "";
+
+        CHECK_EQ(string::join(tokens, ','), expected);
+    }
+
+    SUBCASE("Single element vector returns that element") {
+        std::vector<std::string> tokens = {"hello"};
+
+        std::string expected = "hello";
+
+        CHECK_EQ(string::join(tokens, ','), expected);
+    }
+
+    SUBCASE("Multiple elements are joined with delimiter") {
+        std::vector<std::string> tokens = {"apple", "banana", "orange"};
+
+        std::string expected = "apple,banana,orange";
+
+        CHECK_EQ(string::join(tokens, ','), expected);
+    }
+
+    SUBCASE("Delimiter is included between elements") {
+        std::vector<std::string> tokens = {"1", "2", "3"};
+
+        std::string expected = "1-2-3";
+
+        CHECK_EQ(string::join(tokens, '-'), expected);
+    }
+
+    SUBCASE("Empty strings are included") {
+        std::vector<std::string> tokens = {"", "hello", "", "world", ""};
+
+        std::string expected = " hello  world ";
+
+        CHECK_EQ(string::join(tokens, ' '), expected);
+    }
+}
+
 TEST_CASE("Test string::is_numeric function") {
 
     SUBCASE("Empty string is not numeric") {
