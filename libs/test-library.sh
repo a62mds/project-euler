@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Project Euler library test runner script.
+set -e
 
 # Define library name
 LIBRARY_NAME=$1
