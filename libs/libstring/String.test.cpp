@@ -56,3 +56,26 @@ TEST_CASE("Test function string::split") {
         CHECK_EQ(string::split(to_split, ','), expected_tokens);
     }
 }
+
+TEST_CASE("Test string::is_numeric function") {
+
+    SUBCASE("Empty string is not numeric") {
+        CHECK_FALSE(string::is_numeric(""));
+    }
+
+    SUBCASE("Non-numeric string is not numeric") {
+        CHECK_FALSE(string::is_numeric("abc"));
+    }
+
+    SUBCASE("Numeric string is numeric") {
+        CHECK(string::is_numeric("123"));
+    }
+
+    SUBCASE("Alphanumeric string is not numeric") {
+        CHECK_FALSE(string::is_numeric("123abc"));
+    }
+
+    SUBCASE("String with leading and trailing spaces is not numeric") {
+        CHECK_FALSE(string::is_numeric(" 123 "));
+    }
+}

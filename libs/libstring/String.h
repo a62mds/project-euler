@@ -1,6 +1,7 @@
 #ifndef STRING_H
 #define STRING_H
 
+#include <algorithm>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -18,6 +19,13 @@ std::vector<std::string> split(const std::string& str, char delimiter) {
     }
 
     return tokens;
+}
+
+bool is_numeric(const std::string& str) {
+    if (str.empty()) {
+        return false;
+    }
+    return std::all_of(str.begin(), str.end(), isdigit);
 }
 
 }; // namespace string
