@@ -1,5 +1,7 @@
 #include "doctest.h"
 
+#include <string>
+
 #include "Filter.h"
 
 
@@ -14,8 +16,8 @@ TEST_CASE("Test function functional::filter") {
     }
 
     SUBCASE("Test filtering nonempty strings from vector of strings") {
-        std::vector<std::string> strings{"s", "t" "rin", "gs", "", "are", "", "f", "u", "n!"};
-        std::vector<std::string> nonempty_strings{"s", "t" "rin", "gs", "are", "f", "u", "n!"};
+        std::vector<std::string> strings{"s", "t", "rin", "gs", "", "are", "", "f", "u", "n!"};
+        std::vector<std::string> nonempty_strings{"s", "t", "rin", "gs", "are", "f", "u", "n!"};
         std::function<bool(const std::string&)> is_nonempty = [](const std::string& string){ return !string.empty(); };
 
         CHECK_EQ(functional::filter(strings, is_nonempty), nonempty_strings);
