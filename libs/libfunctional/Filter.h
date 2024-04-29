@@ -7,6 +7,19 @@
 namespace functional {
 
 template <typename T>
+std::vector<T> filter(const std::vector<T>& input, std::function<bool(T)> key) {
+
+	std::vector<T> output;
+	for (const T& x : input) {
+		if (key(x)) {
+			output.push_back(x);
+		}
+	}
+
+	return output;
+}
+
+template <typename T>
 std::vector<T> filter(const std::vector<T>& input, std::function<bool(const T&)> key) {
 
 	std::vector<T> output;
