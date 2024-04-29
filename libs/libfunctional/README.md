@@ -9,3 +9,7 @@ General-purpose library with tools for doing functional programming.
 ### Filter
 
 Implementation of the `filter` concept.
+
+### Map
+
+Implementation of the `map` concept.
