@@ -15,18 +15,35 @@ namespace matrices {
 template <typename T>
 class Matrix {
 public:
-    Matrix(size_t num_rows, size_t num_cols, T initial_value) :
-        num_rows(num_rows),
-        num_cols(num_cols)
-    {
+    Matrix(size_t num_rows, size_t num_cols) : num_rows(num_rows), num_cols(num_cols) {
+
+        validate_dimensions(num_rows, num_cols);
+
+        data.resize(num_rows, std::vector<T>(num_cols));
+    }
+
+    Matrix(size_t num_rows, size_t num_cols, const T& initial_value) : num_rows(num_rows), num_cols(num_cols) {
+        
+        validate_dimensions(num_rows, num_cols);
+
+        data.resize(num_rows, std::vector<T>(num_cols, initial_value));
+    }
+
+    Matrix(const std::vector<std::vector<T>>& matrix_rows) : data(matrix_rows) {
+        num_rows = matrix_rows.size();
         if (num_rows < 1) {
             throw std::invalid_argument("Matrix must have at least 1 row");
         }
+
+        num_cols = matrix_rows[0].size();
         if (num_cols < 1) {
             throw std::invalid_argument("Matrix must have at least 1 column");
         }
-
-        data.resize(num_rows, std::vector<T>(num_cols, initial_value));
+        for (auto& row : matrix_rows) {
+            if (row.size() != num_cols) {
+                throw std::invalid_argument("Rows have inconsistent sizes");
+            }
+        }
     }
 
     T get(size_t row, size_t col) const {
@@ -102,6 +119,15 @@ public:
     }
 
 private:
+    void validate_dimensions(size_t num_rows, size_t num_cols) const {
+        if (num_rows < 1) {
+            throw std::invalid_argument("Matrix must have at least 1 row");
+        }
+        if (num_cols < 1) {
+            throw std::invalid_argument("Matrix must have at least 1 column");
+        }
+    }
+
     void validate_indices(size_t row, size_t col) const {
         if (row >= num_rows) {
             throw std::out_of_range("Row index out of range: " + std::to_string(row) + " >= " + std::to_string(num_rows));

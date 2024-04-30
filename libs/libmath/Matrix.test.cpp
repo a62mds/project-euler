@@ -3,6 +3,73 @@
 #include "Matrix.h"
 
 
+TEST_CASE("Test math::matrices::Matrix dimensional constructor") {
+
+    SUBCASE("Valid matrix dimensions") {
+        CHECK_NOTHROW(math::matrices::Matrix<int>(3, 4));
+    }
+
+    SUBCASE("Invalid matrix dimensions") {
+        CHECK_THROWS_AS(math::matrices::Matrix<int>(0, 4), std::invalid_argument);
+        CHECK_THROWS_AS(math::matrices::Matrix<int>(3, 0), std::invalid_argument);
+    }
+}
+
+TEST_CASE("Test math::matrices::Matrix dimensional constructor with initial value") {
+
+    SUBCASE("Valid matrix dimensions") {
+        CHECK_NOTHROW(math::matrices::Matrix<int>(2, 2, 0));
+    }
+
+    SUBCASE("Constructor with specified dimensions and initial value") {
+        math::matrices::Matrix<int> mat(2, 2, 10);
+
+        for (size_t i = 0; i < 2; ++i) {
+            for (size_t j = 0; j < 2; ++j) {
+                CHECK_EQ(mat.get(i, j), 10);
+            }
+        }
+    }
+
+    SUBCASE("Matrix initialization with initial value") {
+        CHECK_THROWS_AS(math::matrices::Matrix<int>(0, 4, 0), std::invalid_argument);
+        CHECK_THROWS_AS(math::matrices::Matrix<int>(3, 0, 0), std::invalid_argument);
+    }
+}
+
+TEST_CASE("Test math::matrices::Matrix constructor from vector of vectors") {
+
+    SUBCASE("Valid matrix dimensions") {
+        std::vector<std::vector<int>> valid_matrix_rows = {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };
+        math::matrices::Matrix<int> mat(valid_matrix_rows);
+
+        for (size_t i = 0; i < 3; ++i) {
+            for (size_t j = 0; j < 3; ++j) {
+                CHECK_EQ(mat.get(i, j), valid_matrix_rows[i][j]);
+            }
+        }
+    }
+
+    SUBCASE("Inconsistent row dimensions") {
+        std::vector<std::vector<int>> invalid_matrix = {
+            {1, 2, 3},
+            {4, 5},
+            {7, 8, 9}
+        };
+
+        CHECK_THROWS_AS(math::matrices::Matrix<int>{invalid_matrix}, std::invalid_argument);
+    }
+
+    SUBCASE("Empty matrix") {
+        std::vector<std::vector<int>> empty_matrix;
+        CHECK_THROWS_AS(math::matrices::Matrix<int>{empty_matrix}, std::invalid_argument); // Empty matrix should throw
+    }
+}
+
 TEST_CASE("Test method math::matrices::Matrix::get") {
     math::matrices::Matrix<int> m(1ul, 1ul, 0);
 
