@@ -123,4 +123,14 @@ numbers::natural sequences::Fibonacci::next() {
     return current_value;
 }
 
+sequences::TriangleNumbers::TriangleNumbers() : Sequence(0ull) {
+    _natural_numbers.next();
+}
+
+numbers::natural sequences::TriangleNumbers::next() {
+    _next_value += _natural_numbers.next();
+
+    return _next_value;
+}
+
 }; // namespace math

@@ -192,3 +192,28 @@ TEST_CASE("Test class math::sequences::Fibonacci") {
         CHECK(second_10_terms == fib.next(10));
     }
 }
+
+TEST_CASE("Test class math::sequences::TriangleNumbers") {
+    std::vector<math::numbers::natural> first_10_terms = {1, 3, 6, 10, 15, 21, 28, 36, 45, 55};
+    std::vector<math::numbers::natural> second_10_terms = {66, 78, 91, 105, 120, 136, 153, 171, 190, 210};
+
+    SUBCASE("Test next() for first 10 terms") {
+        math::sequences::TriangleNumbers t;
+        for (auto& term : first_10_terms) {
+            CHECK_EQ(term, t.next());
+        }
+    }
+
+    SUBCASE("Test next(10) and next() for first 11 terms") {
+        math::sequences::TriangleNumbers t;
+        CHECK_EQ(first_10_terms, t.next(10));
+
+        CHECK_EQ(second_10_terms[0], t.next());
+    }
+
+    SUBCASE("Test next(10) and next(10) for second 10 terms") {
+        math::sequences::TriangleNumbers t;
+        t.next(10);       // Ignore first 10 terms
+        CHECK_EQ(second_10_terms, t.next(10));
+    }
+}

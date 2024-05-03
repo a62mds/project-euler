@@ -114,6 +114,21 @@ namespace sequences {
         private:
             numbers::natural _current_value;
     };
+
+    /**
+     * Generate the sequence of triangle numbers
+    */
+
+    class TriangleNumbers : public Sequence {
+        public:
+            TriangleNumbers();
+
+            numbers::natural next();
+
+            using Sequence::next;
+        private:
+            Natural _natural_numbers;
+    };
 }; // namespace sequences
 
 }; // namespace math
