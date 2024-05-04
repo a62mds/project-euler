@@ -29,9 +29,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Change directory to the Debug directory
-pushd Debug > /dev/null
-
 # Run the executable for testing
 ./test-solution-to-{{ problem_name }}
 RETURN_CODE=$?
