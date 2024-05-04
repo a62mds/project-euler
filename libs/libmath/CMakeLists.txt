@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 # set the project name and version
 project(Math VERSION 1.1)
+set(CMAKE_STATIC_LIBRARY_PREFIX "")
 
 option(ENABLE_TESTS "Enable tests" OFF)
 
