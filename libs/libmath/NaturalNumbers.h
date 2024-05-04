@@ -2,6 +2,7 @@
 #define NATURAL_NUMBERS_H
 
 #include <tuple>
+#include <unordered_set>
 #include <vector>
 
 
@@ -45,6 +46,11 @@ numbers::natural get_smallest_n_digit_number(size_t num_digits);
  * Get the largest n-digit number
  */
 numbers::natural get_largest_n_digit_number(size_t num_digits);
+
+/**
+ * Get all divisors of a number
+*/
+std::unordered_set<numbers::natural> get_divisors(numbers::natural dividend);
 
 namespace operations {
     numbers::natural exponentiate(numbers::natural base, size_t exponent);

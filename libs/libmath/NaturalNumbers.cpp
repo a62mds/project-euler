@@ -63,6 +63,30 @@ numbers::natural get_largest_n_digit_number(size_t num_digits) {
     return operations::exponentiate(10, num_digits) - 1;
 }
 
+std::unordered_set<numbers::natural> get_divisors(numbers::natural dividend) {
+    if (dividend == 0ull) {
+        throw std::invalid_argument("Everything divides 0");
+    }
+
+    std::unordered_set<numbers::natural> divisors;
+
+    divisors.insert(1ull);
+    if (dividend == 1ull) {
+        return divisors;
+    }
+
+    for (numbers::natural candidate=2ull; candidate * candidate <= dividend; ++candidate) {
+        if (dividend % candidate == 0) {
+            divisors.insert(candidate);
+            divisors.insert(dividend / candidate);
+        }
+    }
+
+    divisors.insert(dividend);
+
+    return divisors;
+}
+
 numbers::natural operations::exponentiate(numbers::natural base, size_t exponent) {
     if (exponent == 0) {
         return 1;

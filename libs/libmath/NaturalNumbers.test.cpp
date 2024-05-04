@@ -84,6 +84,55 @@ TEST_CASE("Test function math::get_largest_n_digit_number") {
     CHECK(math::get_largest_n_digit_number(15) == 999999999999999);
 }
 
+TEST_CASE("Test function math::get_divisors") {
+
+    SUBCASE("Test trying to get divisors of 0 raises invalid_argument") {
+        CHECK_THROWS_AS(math::get_divisors(0), std::invalid_argument);
+    }
+
+    SUBCASE("Test only divisor of 1 is 1") {
+        std::unordered_set<math::numbers::natural> expected = {1ull};
+
+        CHECK_EQ(math::get_divisors(1ull), expected);
+    }
+
+    SUBCASE("Test divisors of 2 are 1 and 2") {
+        std::unordered_set<math::numbers::natural> expected = {1ull, 2ull};
+
+        CHECK_EQ(math::get_divisors(2ull), expected);
+    }
+
+    SUBCASE("Test divisors of 20 are 1, 2, 4, 5, 10, and 20") {
+        std::unordered_set<math::numbers::natural> expected = {
+            1ull,
+            2ull,
+            4ull,
+            5ull,
+            10ull,
+            20ull
+        };
+
+        CHECK_EQ(math::get_divisors(20ull), expected);
+    }
+
+    SUBCASE("Test divisors of 51 are 1, 3, 17, and 51") {
+        std::unordered_set<math::numbers::natural> expected = {
+            1ull,
+            3ull,
+            17ull,
+            51ull
+        };
+
+        CHECK_EQ(math::get_divisors(51ull), expected);
+    }
+
+    SUBCASE("Test divisors of 19081 are 1 and 19081") {
+        std::unordered_set<math::numbers::natural> expected = {1ull, 19081ull};
+
+        CHECK_EQ(math::get_divisors(19081ull), expected);
+    }
+}
+
 TEST_CASE("Test scalar function math::operations::exponentiate") {
     SUBCASE("Test powers of 0") {
         CHECK(math::operations::exponentiate(0, 0) == 1);
