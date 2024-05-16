@@ -157,4 +157,14 @@ numbers::natural sequences::TriangleNumbers::next() {
     return _next_value;
 }
 
+sequences::CollatzNumbers::CollatzNumbers(numbers::natural initial_value) : Sequence(initial_value) {}
+
+numbers::natural sequences::CollatzNumbers::next() {
+    numbers::natural current_value = _next_value;
+
+    _next_value = current_value % 2 == 0 ? current_value / 2 : 3 * current_value + 1;
+
+    return current_value;
+}
+
 }; // namespace math

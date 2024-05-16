@@ -266,3 +266,15 @@ TEST_CASE("Test class math::sequences::TriangleNumbers") {
         CHECK_EQ(second_10_terms, t.next(10));
     }
 }
+
+TEST_CASE("Test class math::sequences::CollatzNumbers") {
+    math::numbers::natural initial_value = 13;
+    std::vector<math::numbers::natural> first_10_terms = {13, 40, 20, 10, 5, 16, 8, 4, 2, 1};
+
+    SUBCASE("Test next() for first 10 terms") {
+        math::sequences::CollatzNumbers c(initial_value);
+        for (auto& term : first_10_terms) {
+            CHECK_EQ(term, c.next());
+        }
+    }
+}

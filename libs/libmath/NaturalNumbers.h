@@ -135,6 +135,18 @@ namespace sequences {
         private:
             Natural _natural_numbers;
     };
+
+    /**
+     * Generate the sequence of Collatz numbers
+     */
+    class CollatzNumbers : public Sequence {
+        public:
+            CollatzNumbers(numbers::natural initial_value);
+
+            numbers::natural next();
+
+            using Sequence::next;
+    };
 }; // namespace sequences
 
 }; // namespace math
