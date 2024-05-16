@@ -25,6 +25,7 @@ add_library(libmath "${SOURCES}" "${HEADERS}")
 if(${ENABLE_TESTS})
     set(TEST_SOURCES
         Math.test.cpp
+        BigNumbers.test.cpp
         Matrix.test.cpp
         NaturalNumbers.test.cpp
         PrimeNumbers.test.cpp
