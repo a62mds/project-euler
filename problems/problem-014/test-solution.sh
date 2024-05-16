@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Define the build directory
+BUILD_DIRECTORY=".build"
+
+# Define the return code variable
+RETURN_CODE=0
+
+# Create the build directory if it doesn't exist
+if [ ! -d "$BUILD_DIRECTORY" ]; then
+    mkdir "$BUILD_DIRECTORY"
+fi
+
+# Change directory to the build directory
+pushd "$BUILD_DIRECTORY" > /dev/null
+
+# Build the solution using CMake
+cmake ..
+if [ $? -ne 0 ]; then
+    echo "Failed to configure build using CMake"
+    popd > /dev/null
+    exit 1
+fi
+
+cmake --build .
+if [ $? -ne 0 ]; then
+    echo "Failed to build the solution using CMake"
+    popd > /dev/null
+    exit 1
+fi
+
+# Run the executable for testing
+./test-solution-to-problem-014
+RETURN_CODE=$?
+
+# Change back to the original directory
+popd > /dev/null
+
+# Exit with the return code
+exit $RETURN_CODE
