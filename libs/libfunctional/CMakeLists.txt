@@ -17,6 +17,7 @@ if(${ENABLE_TESTS})
         Functional.test.cpp
         Filter.test.cpp
         Map.test.cpp
+        Reduce.test.cpp
     )
     add_executable(test-libfunctional "${TEST_SOURCES}")
     target_include_directories(test-libfunctional PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../external/doctest/doctest/")

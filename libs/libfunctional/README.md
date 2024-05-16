@@ -13,3 +13,7 @@ Implementation of the `filter` concept.
 ### Map
 
 Implementation of the `map` concept.
+
+### Reduce
+
+Implementation of the `reduce` concept.
